@@ -64,10 +64,10 @@ function mobileNoValidate($mobile_no,$type='local') {
 
 }
 
-function companies()
+/*function companies()
 {
     return \App\Modules\Companies\Models\Companies::pluck('name','id');
-}
+}*/
 
 function products()
 {

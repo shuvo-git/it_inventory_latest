@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Modules\Products\Models\Products;
-use App\Modules\Companies\Models\Companies;
+//use App\Modules\Companies\Models\Companies;
 use App\Modules\Products\Models\Category;
 use App\Modules\Brand\Models\Brand;
 use App\Modules\SubGroup\Models\SubGroup;
@@ -24,9 +24,9 @@ class ProductsController extends Controller {
     use FileProcessTrait;
 
     /**
-     * Display the module welcome screen
+     * 
      *
-     * @return \Illuminate\Http\Response
+     * Working Code 05/09/2021
      */
     public function index(Request $request) {
         if (!auth()->user()->can('Product Management'))
@@ -47,12 +47,15 @@ class ProductsController extends Controller {
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
-        if ($request->filled('company')) {
-            $query->where('companies_id', $request->company);
-        }
+     
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
+
+        if ($request->filled('sub_category')) {
+            $query->where('sub_category_id', $request->category);
+        }
+
         if ($request->filled('date_from') and $request->filled('date_to')) {
             $date_from = Carbon::parse($request->input('date_from'))->startOfDay();
             $date_to = Carbon::parse($request->input('date_to'))->endOfDay();
@@ -62,6 +65,9 @@ class ProductsController extends Controller {
         return $query->paginate(50);
     }
 
+    /**
+     * Working Code 01/09/2021
+     */
     public function create(Request $request) {
         if (!auth()->user()->can('Product Management'))
             abort(403);
@@ -69,7 +75,11 @@ class ProductsController extends Controller {
         return view("Products::create");
     }
 
-    public function store(Request $request) {
+    /**
+     * Working Code 05/09/2021
+     */
+    public function store(Request $request) 
+    {
         if (!auth()->user()->can('Product Management'))
             abort(403);
 
@@ -82,22 +92,24 @@ class ProductsController extends Controller {
             'brand.*' => 'required|integer|exists:brands,id',
             'name' => 'required|array',
             'name.*' => 'required|string',
-            'buy_qty' => 'required|array',
-            'buy_qty.*' => 'required|integer|min:1'
+            'depriciation_period' => 'required|array',
+            'depriciation_period.*' => 'required|integer|min:1',
+            'depriciation_amount' => 'required|array',
+            'depriciation_amount.*' => 'required|integer'
         ]);
 
         try {
-            for ($i = 0; $i < count($request->category); $i++) {
+            for ($i = 0; $i < count($request->category); $i++) 
+            {
                 $data[] = [
+                    'name' => $request->name[$i],
                     'category_id' => $request->category[$i],
                     'sub_category_id' => $request->sub_group[$i],
                     'brand_id' => $request->brand[$i],
-                    'name' => $request->name[$i],
-                    'details' => $request->details[$i],
-                    'buy_qty' => $request->buy_qty[$i],
-                    'available_qty' => $request->buy_qty[$i],
-                    'created_by' => auth()->user()->id,
+                    'depriciation_period'=> $request->depriciation_period[$i],
+                    'depriciation_amount'=> $request->depriciation_amount[$i],
                     'created_at' => Carbon::now(),
+                    'created_by' => auth()->user()->id,
                 ];
             }
             if (isset($data)) {
@@ -112,29 +124,26 @@ class ProductsController extends Controller {
         }
     }
 
+    /**
+     * Working Code 05/09/2021
+     */
     public function update($id, Request $request) {
         if (!auth()->user()->can('Product Management'))
             abort(403);
         $this->validate($request, [
-            'company' => 'required|integer|exists:companies,id',
             'category' => 'required|integer|exists:categories,id',
-            'name' => 'required',
-            'available_qty' => 'required|integer|min:1',
-            // 'short_list_qty' => 'sometimes|nullable',
-            'buy_price' => 'required|numeric|min:0',
+            'sub_category' => 'required|integer|exists:sub_categories,id',
+            'brand' => 'required|integer|exists:brands,id',
+            'name' => 'required|string',
         ]);
 
         $product = Products::findOrFail($id);
-        $product->companies_id = $request->company;
-        $product->category_id = $request->category;
-        $product->name = $request->name;
-        $product->buy_qty = $request->available_qty + $product->sell_qty;
-        $product->available_qty = $request->available_qty;
-        $product->unit = $request->unit;
-        $product->buy_price = $request->buy_price;
-        // $product->short_list_qty = $request->short_list_qty;
+        $product->category_id       = $request->category;
+        $product->sub_category_id   = $request->sub_category;
+        $product->name              = $request->name;
+        $product->brand_id          = $request->brand;
+
         $product->updated_by = auth()->user()->id;
-        $product->updated_at = Carbon::now();
         $product->save();
 
         return redirect()->back()->with('success', 'Product Successfully updated');
@@ -159,7 +168,7 @@ class ProductsController extends Controller {
                     Log::info($col);
                     return redirect()->back()->withErrors("Invalid Category Name. Please check your file.");
                 }
-                $company = Companies::firstOrCreate(['name' => $col['company']]);
+                // $company = Companies::firstOrCreate(['name' => $col['company']]);
                 $category = Category::firstOrCreate(['name' => $col['category']]);
                 if (!$col['name'] || !$col['buy_qty'] || !$col['buy_price'] || !$col['sell_price']) {
                     Log::info($col);

@@ -61,7 +61,7 @@
                     <a class="brand_list" href="{{route('brand.index')}}">Manage Brand</a>
                 </li>
                 <li>
-                    <a href="{{route('companies.index')}}" class="company_management">Manage Supplier</a>
+                    <a class="company_management" href="{{route('supplier.index')}}" >Manage Supplier</a>
                 </li>
             </ul>
         </li>
@@ -100,6 +100,29 @@
                 </li>
                 <li>
                     <a class="return" href="{{route('return.index')}}">Return Buy Products</a>
+                </li>
+            </ul>
+        </li>
+        @endcan
+
+        @can('Stock Management')
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" class="stock_management" data-target="#stock_management">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-shopping-cart-plus mr-20"></i>
+                    <span class="right-nav-text">Stock Management</span>
+                </div>
+                <div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="stock_management" class="collapse collapse-level-1 two-col-list">
+                <li>
+                    <a class="stock_in" href="{{route('stock-in.index')}}">Stock In List</a>
+                </li>
+                <li>
+                    <a class="stock_out" href="{{route('stock-out.index')}}">Stock Out List</a>
                 </li>
             </ul>
         </li>

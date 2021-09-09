@@ -37,8 +37,11 @@
                             {{Form::select('category',category(),request('category'),['class'=>'form-control select2','placeholder'=>'Select Category'])}}
                         </div>
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                            {{Form::select('company',companies(),request('company'),['class'=>'form-control select2','placeholder'=>'Select Company'])}}
+                            {{Form::select('sub_category',subGroup(),request('sub_category'),['class'=>'form-control select2','placeholder'=>'Select Sub-category'])}}
                         </div>
+                        {{--<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                            {{Form::select('company',companies(),request('company'),['class'=>'form-control select2','placeholder'=>'Select Company'])}}
+                        </div>--}}
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             {{Form::select('status',productStatus(),request('status'),['class'=>'form-control select2','placeholder'=>'Select Status'])}}
                         </div>
@@ -89,7 +92,6 @@
                                         <th>Group</th>
                                         <th>Sub Group</th>
                                         <th>Brand</th>
-                                        <th>Available Qty</th>
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
@@ -102,8 +104,7 @@
                                         <td>{{$product->category->name ?? ''}}</td>
                                         <td>{{$product->subGroup->name ?? ''}}</td>
                                         <td>{{$product->brand->name ?? ''}}</td>
-                                        <td>{{$product->available_qty ?? ''}}</td>
-                                        <td>{{$product->created_at->format('Y-m-d') ?? ''}}</td>
+                                        <td>{{$product->created_at->format('d M, Y') ?? ''}}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$product->id}}">View</button>
                                              @include('Products::show')

@@ -8,6 +8,9 @@ use App\Modules\Sell\Models\MonthlySell;
 use Carbon\Carbon;
 use Log;
 use App\Modules\Products\Models\Products;
+use App\Modules\StockIn\Models\StockIn;
+use App\Modules\StockIn\Models\StockInDetails;
+
 class HomeController extends Controller {
 
     /**
@@ -28,7 +31,12 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $totalProducts = Products::with('category')->selectRaw('sum(available_qty) as total,category_id')->where('status',1)->groupBy('category_id')->get();
+        $totalProducts = Products::with('category')
+            ->selectRaw('sum(available_qty) as total,category_id')
+            ->where('status',1)
+            ->groupBy('category_id')
+            ->get(); 
+
         
         //$dailySells = DailySell::where('sell_date', Carbon::now()->format('Y-m-d'))->get();
 

@@ -1,272 +1,18 @@
+/*
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 10.4.17-MariaDB : Database - inventory
+*********************************************************************
+*/
 
-DROP TABLE IF EXISTS `buying_products`;
 
-CREATE TABLE `buying_products` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `companies_id` bigint(20) NOT NULL,
-  `category_id` bigint(20) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `buy_qty` int(11) NOT NULL DEFAULT '0' COMMENT 'unit',
-  `sell_qty` int(11) NOT NULL DEFAULT '0' COMMENT 'unit',
-  `available_qty` int(11) NOT NULL DEFAULT '0' COMMENT 'unit',
-  `unit` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'kg / piece',
-  `buy_price` double(10,2) NOT NULL DEFAULT '0.00' COMMENT 'per unit',
-  `sell_price` double(10,2) NOT NULL DEFAULT '0.00' COMMENT 'per unit',
-  `group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `short_list_qty` int(11) DEFAULT NULL,
-  `exp_date` date DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '1' COMMENT '1 = available 0= unavailable',
-  `deleted_at` datetime DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET NAMES utf8 */;
 
-/*Data for the table `buying_products` */
+/*!40101 SET SQL_MODE=''*/;
 
-insert  into `buying_products`(`id`,`companies_id`,`category_id`,`name`,`buy_qty`,`sell_qty`,`available_qty`,`unit`,`buy_price`,`sell_price`,`group`,`details`,`short_list_qty`,`exp_date`,`status`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,1,1,'Flour',45,0,45,'Kg',30.00,0.00,NULL,NULL,0,NULL,1,NULL,NULL,1,1,'2021-06-09 02:32:36','2021-06-13 02:38:18'),(2,1,1,'Suger',47,0,47,'Kg',70.00,0.00,NULL,NULL,0,NULL,1,NULL,NULL,1,1,'2021-06-09 02:32:36','2021-06-13 02:38:28'),(3,1,6,'Hilsha',5,0,5,'Piece',800.00,0.00,NULL,NULL,NULL,NULL,1,NULL,NULL,1,NULL,'2021-06-13 02:43:18',NULL),(4,1,4,'Boiler',20,0,20,'Piece',120.00,0.00,NULL,NULL,NULL,NULL,1,NULL,NULL,1,NULL,'2021-06-13 02:43:18',NULL);
-
-/*Table structure for table `categories` */
-
-DROP TABLE IF EXISTS `categories`;
-
-CREATE TABLE `categories` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `categories_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `categories` */
-
-insert  into `categories`(`id`,`name`,`deleted_at`,`deleted_by`,`created_at`,`updated_at`) values (1,'Grocery',NULL,NULL,'2021-06-07 02:25:25','2021-06-07 02:25:25'),(2,'Meat',NULL,NULL,'2021-06-13 01:24:14','2021-06-13 01:24:14'),(3,'Vegetables',NULL,NULL,'2021-06-13 01:25:17','2021-06-13 01:25:17'),(4,'Poultry',NULL,NULL,'2021-06-13 01:26:28','2021-06-13 01:26:28'),(5,'Fruits',NULL,NULL,'2021-06-13 01:26:50','2021-06-13 01:26:50'),(6,'Fish',NULL,NULL,'2021-06-13 01:27:20','2021-06-13 01:27:20');
-
-/*Table structure for table `companies` */
-
-DROP TABLE IF EXISTS `companies`;
-
-CREATE TABLE `companies` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sr_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sr_mobile_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `companies` */
-
-insert  into `companies`(`id`,`name`,`sr_name`,`sr_mobile_no`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,'ABC','abc',NULL,NULL,NULL,1,1,'2021-06-07 01:10:50','2021-06-07 01:11:01');
-
-/*Table structure for table `computer_works` */
-
-DROP TABLE IF EXISTS `computer_works`;
-
-CREATE TABLE `computer_works` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_amount` int(11) NOT NULL DEFAULT '0',
-  `cost` int(11) NOT NULL DEFAULT '0',
-  `profit` int(11) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `computer_works` */
-
-/*Table structure for table `customer_dues` */
-
-DROP TABLE IF EXISTS `customer_dues`;
-
-CREATE TABLE `customer_dues` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `customer_id` bigint(20) NOT NULL,
-  `credit_amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `debit_amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `customer_dues` */
-
-/*Table structure for table `customers` */
-
-DROP TABLE IF EXISTS `customers`;
-
-CREATE TABLE `customers` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `balance_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'credit' COMMENT 'credit,dabit',
-  `balance` double(10,2) NOT NULL DEFAULT '0.00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `customers_mobile_no_unique` (`mobile_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `customers` */
-
-insert  into `customers`(`id`,`name`,`mobile_no`,`address`,`balance_type`,`balance`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,'Walking',NULL,NULL,'credit',0.00,NULL,NULL,NULL,NULL,'2021-06-09 02:52:30','2021-06-09 02:52:30');
-
-/*Table structure for table `daily_balances` */
-
-DROP TABLE IF EXISTS `daily_balances`;
-
-CREATE TABLE `daily_balances` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `balance` double(10,2) NOT NULL DEFAULT '0.00',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `daily_balances` */
-
-/*Table structure for table `daily_sells` */
-
-DROP TABLE IF EXISTS `daily_sells`;
-
-CREATE TABLE `daily_sells` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(20) NOT NULL,
-  `sell_date` date NOT NULL,
-  `total_sell` double(10,2) NOT NULL,
-  `total_profit` double(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `daily_sells` */
-
-insert  into `daily_sells`(`id`,`category_id`,`sell_date`,`total_sell`,`total_profit`,`created_at`,`updated_at`) values (1,1,'2021-06-10',60.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14'),(2,1,'2021-06-10',0.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14');
-
-/*Table structure for table `expense_categories` */
-
-DROP TABLE IF EXISTS `expense_categories`;
-
-CREATE TABLE `expense_categories` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `expense_categories_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `expense_categories` */
-
-insert  into `expense_categories`(`id`,`name`,`note`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,'Travel Expenses','Travel Expenses',NULL,NULL,1,1,'2021-06-13 01:19:48','2021-06-13 01:22:15'),(2,'Office Expenses','Official all types of Expenses.',NULL,NULL,1,NULL,'2021-06-13 01:21:36','2021-06-13 01:21:36'),(3,'Rent, Utilities & Phone','Rent, Utilities & Phone',NULL,NULL,1,NULL,'2021-06-13 01:22:44','2021-06-13 01:22:44');
-
-/*Table structure for table `expenses` */
-
-DROP TABLE IF EXISTS `expenses`;
-
-CREATE TABLE `expenses` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `expense_category_id` bigint(20) NOT NULL,
-  `amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `expenses` */
-
-/*Table structure for table `failed_jobs` */
-
-DROP TABLE IF EXISTS `failed_jobs`;
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `failed_jobs` */
-
-/*Table structure for table `loan_details` */
-
-DROP TABLE IF EXISTS `loan_details`;
-
-CREATE TABLE `loan_details` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `loan_provider_id` bigint(20) NOT NULL,
-  `credit_amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `debit_amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `loan_details` */
-
-/*Table structure for table `loan_providers` */
-
-DROP TABLE IF EXISTS `loan_providers`;
-
-CREATE TABLE `loan_providers` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `loan_amount` double(10,2) NOT NULL DEFAULT '0.00',
-  `loan_paid` double(10,2) NOT NULL DEFAULT '0.00',
-  `loan_remain` double(10,2) NOT NULL DEFAULT '0.00',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1=loan raning,0=loan close',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` bigint(20) DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `loan_providers_mobile_no_unique` (`mobile_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `loan_providers` */
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 /*Table structure for table `users` */
 
@@ -292,20 +38,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-/*Table structure for table `migrations` */
-
-DROP TABLE IF EXISTS `migrations`;
-
-CREATE TABLE `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `migrations` */
-
-insert  into `migrations`(`id`,`migration`,`batch`) values (28,'2014_10_12_000000_create_users_table',1),(29,'2014_10_12_100000_create_password_resets_table',1),(30,'2016_06_01_000001_create_oauth_auth_codes_table',1),(31,'2016_06_01_000002_create_oauth_access_tokens_table',1),(32,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(33,'2016_06_01_000004_create_oauth_clients_table',1),(34,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(35,'2019_08_19_000000_create_failed_jobs_table',1),(36,'2020_04_13_044143_create_permission_tables',1),(37,'2020_04_22_120306_create_otps',1),(38,'2020_04_22_120314_create_otp_counts',1),(39,'2020_06_10_145012_create_companies',1),(40,'2020_06_10_145140_create_products',1),(41,'2020_06_12_114311_create_oreders',1),(42,'2020_06_12_114705_create_oreder_details',1),(43,'2020_06_14_221531_create_daily_sells',1),(44,'2020_06_15_165650_create_categories',1),(45,'2020_06_17_122639_create_monthly_sells',1),(46,'2020_06_17_163429_create_expense_categories',1),(47,'2020_06_17_163731_create_expenses',1),(48,'2020_06_18_115525_create_customers',1),(49,'2020_06_18_120008_create_customer_dues',1),(50,'2020_06_27_145957_create_daily_balances',1),(51,'2020_06_28_113043_create_computer_work',1),(52,'2020_06_30_120845_create_return_items',1),(53,'2020_07_02_100159_create_loan_providers',1),(54,'2020_07_02_101025_create_loan_details',1),(55,'2021_06_08_013550_create_selling_products_table',2),(56,'2021_06_08_014400_create_suppliers_table',3);
+insert  into `users`(`id`,`name`,`mobile_no`,`email`,`password`,`type`,`api_token`,`remember_token`,`deleted_at`,`created_at`,`updated_at`) values (1,'Super Admin','01675923371','admin@gmail.com','$2y$10$E64.IPwHrVO3DEh3so6XJ.9KLU2HqiAhnYdkDELLMG2rAOqBXi0rC','system',NULL,NULL,NULL,'2021-08-24 12:40:16','2021-08-24 12:40:16');
 
 /*Table structure for table `permissions` */
 
@@ -322,25 +55,7 @@ CREATE TABLE `permissions` (
 
 /*Data for the table `permissions` */
 
-insert  into `permissions`(`id`,`name`,`guard_name`,`created_at`,`updated_at`) values (1,'System User Management','web','2021-06-01 03:17:53','2021-06-01 03:17:53'),(2,'Administration','web','2021-06-01 03:17:53','2021-06-01 03:17:53'),(3,'Product Management','web','2021-06-01 03:17:53','2021-06-01 03:17:53'),(4,'Invoice Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(5,'Role Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(6,'Settings','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(7,'Company Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(8,'Report Manager','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(9,'Expense Category','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(10,'Expense Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(11,'Customer Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(12,'Customer Due Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54'),(13,'Loan Management','web','2021-06-01 03:17:54','2021-06-01 03:17:54');
-
-
-
-
-/*Table structure for table `model_has_permissions` */
-
-DROP TABLE IF EXISTS `model_has_permissions`;
-
-CREATE TABLE `model_has_permissions` (
-  `permission_id` bigint(20) unsigned NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
-  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
-  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `model_has_permissions` */
+insert  into `permissions`(`id`,`name`,`guard_name`,`created_at`,`updated_at`) values (1,'System User Management','web','2021-08-24 12:40:14','2021-08-24 12:40:14'),(2,'Role Management','web','2021-08-24 12:40:14','2021-08-24 12:40:14'),(3,'Product Management','web','2021-08-24 12:40:14','2021-08-24 12:40:14'),(4,'Invoice Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(5,'Administration','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(6,'Settings','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(7,'Company Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(8,'Report Manager','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(9,'Expense Category','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(10,'Expense Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(11,'Customer Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(12,'Customer Due Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15'),(13,'Loan Management','web','2021-08-24 12:40:15','2021-08-24 12:40:15');
 
 /*Table structure for table `roles` */
 
@@ -357,8 +72,255 @@ CREATE TABLE `roles` (
 
 /*Data for the table `roles` */
 
-insert  into `roles`(`id`,`name`,`guard_name`,`created_at`,`updated_at`) values (1,'Super Admin','web','2021-06-01 03:17:54','2021-06-01 03:17:54');
+insert  into `roles`(`id`,`name`,`guard_name`,`created_at`,`updated_at`) values (1,'Super Admin','web','2021-08-24 12:40:15','2021-08-24 12:40:15');
 
+
+DROP TABLE IF EXISTS `branch_delivery_details`;
+
+CREATE TABLE `branch_delivery_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `delivery_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `delivery_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `branch_delivery_details` */
+
+/*Table structure for table `branch_return_details` */
+
+DROP TABLE IF EXISTS `branch_return_details`;
+
+CREATE TABLE `branch_return_details`(
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `return_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `problem_desc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `in_warranty_period` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `return_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `branch_return_details` */
+
+/*Table structure for table `branch_returns` */
+
+DROP TABLE IF EXISTS `branch_returns`;
+
+CREATE TABLE `branch_returns` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `branch_id` int(11) NOT NULL,
+  `delivery_person` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person_mobile_no` varbinary(20) DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1 = available 0= unavailable',
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `branch_returns` */
+
+/*Table structure for table `brands` */
+
+DROP TABLE IF EXISTS `brands`;
+
+CREATE TABLE `brands` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categories_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `brands` */
+
+insert  into `brands`(`id`,`name`,`deleted_at`,`deleted_by`,`created_at`,`updated_at`) values (1,'HP',NULL,NULL,'2021-08-29 16:50:19','2021-08-29 16:51:10'),(2,'Acer',NULL,NULL,'2021-08-29 16:51:33','2021-08-29 16:51:42');
+
+/*Table structure for table `categories` */
+
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE `categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categories_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `categories` */
+
+insert  into `categories`(`id`,`name`,`deleted_at`,`deleted_by`,`created_at`,`updated_at`) values (1,'Hardware',NULL,NULL,'2021-08-25 12:38:16','2021-08-25 12:38:16'),(2,'Software',NULL,NULL,'2021-08-25 12:38:25','2021-08-25 12:38:25');
+
+/*Table structure for table `companies` */
+
+DROP TABLE IF EXISTS `companies`;
+
+CREATE TABLE `companies` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `concat_person` varbinary(150) NOT NULL,
+  `mobile_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `companies` */
+
+/*Table structure for table `customers` */
+
+DROP TABLE IF EXISTS `customers`;
+
+CREATE TABLE `customers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `balance_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'credit' COMMENT 'credit,dabit',
+  `balance` double(10,2) NOT NULL DEFAULT 0.00,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `customers_mobile_no_unique` (`mobile_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `customers` */
+
+/*Table structure for table `deliver_to_branches` */
+
+DROP TABLE IF EXISTS `deliver_to_branches`;
+
+CREATE TABLE `deliver_to_branches` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `branch_id` int(11) NOT NULL,
+  `requisition_no` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person_mobile_no` varbinary(20) DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1 = available 0= unavailable',
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `deliver_to_branches` */
+
+/*Table structure for table `expense_categories` */
+
+DROP TABLE IF EXISTS `expense_categories`;
+
+CREATE TABLE `expense_categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `expense_categories_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `expense_categories` */
+
+/*Table structure for table `expenses` */
+
+DROP TABLE IF EXISTS `expenses`;
+
+CREATE TABLE `expenses` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `expense_category_id` bigint(20) NOT NULL,
+  `amount` double(10,2) NOT NULL DEFAULT 0.00,
+  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `expenses` */
+
+/*Table structure for table `failed_jobs` */
+
+DROP TABLE IF EXISTS `failed_jobs`;
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `failed_jobs` */
+
+/*Table structure for table `migrations` */
+
+DROP TABLE IF EXISTS `migrations`;
+
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `migrations` */
+
+insert  into `migrations`(`id`,`migration`,`batch`) values (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2016_06_01_000001_create_oauth_auth_codes_table',1),(4,'2016_06_01_000002_create_oauth_access_tokens_table',1),(5,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(6,'2016_06_01_000004_create_oauth_clients_table',1),(7,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(8,'2019_08_19_000000_create_failed_jobs_table',1),(9,'2020_04_13_044143_create_permission_tables',1),(10,'2020_04_22_120306_create_otps',1),(11,'2020_04_22_120314_create_otp_counts',1),(12,'2020_06_10_145012_create_companies',1),(13,'2020_06_10_145140_create_products',1),(14,'2020_06_12_114311_create_oreders',1),(15,'2020_06_12_114705_create_oreder_details',1),(16,'2020_06_14_221531_create_daily_sells',1),(17,'2020_06_15_165650_create_categories',1),(18,'2020_06_17_122639_create_monthly_sells',1),(19,'2020_06_17_163429_create_expense_categories',1),(20,'2020_06_17_163731_create_expenses',1),(21,'2020_06_18_115525_create_customers',1),(22,'2020_06_18_120008_create_customer_dues',1),(23,'2020_06_27_145957_create_daily_balances',1),(24,'2020_06_28_113043_create_computer_work',1),(25,'2020_06_30_120845_create_return_items',1),(26,'2020_07_02_100159_create_loan_providers',1),(27,'2020_07_02_101025_create_loan_details',1),(28,'2021_06_08_013550_create_selling_products_table',1),(29,'2021_06_08_014400_create_suppliers_table',1);
+
+/*Table structure for table `model_has_permissions` */
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `model_has_permissions` */
 
 /*Table structure for table `model_has_roles` */
 
@@ -391,11 +353,9 @@ CREATE TABLE `monthly_sells` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `monthly_sells` */
-
-insert  into `monthly_sells`(`id`,`category_id`,`year`,`month`,`total_sell`,`total_profit`,`created_at`,`updated_at`) values (1,1,'2021','06',60.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14'),(2,1,'2021','06',0.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14');
 
 /*Table structure for table `oauth_access_tokens` */
 
@@ -406,7 +366,7 @@ CREATE TABLE `oauth_access_tokens` (
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `client_id` bigint(20) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -425,7 +385,7 @@ CREATE TABLE `oauth_auth_codes` (
   `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
   `client_id` bigint(20) unsigned NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -485,53 +445,6 @@ CREATE TABLE `oauth_refresh_tokens` (
 
 /*Data for the table `oauth_refresh_tokens` */
 
-/*Table structure for table `order_details` */
-
-DROP TABLE IF EXISTS `order_details`;
-
-CREATE TABLE `order_details` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) NOT NULL,
-  `product_id` bigint(20) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `unit_price` double(10,2) NOT NULL,
-  `total_price` double(10,2) NOT NULL,
-  `discount` double(10,2) NOT NULL DEFAULT '0.00',
-  `grand_total` double(10,2) NOT NULL,
-  `profit` double(10,2) NOT NULL DEFAULT '0.00',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `order_details` */
-
-insert  into `order_details`(`id`,`order_id`,`product_id`,`qty`,`unit_price`,`total_price`,`discount`,`grand_total`,`profit`,`created_at`,`updated_at`) values (1,1,1,1,60.00,60.00,0.00,60.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14'),(2,1,2,1,120.00,120.00,0.00,120.00,0.00,'2021-06-10 02:48:14','2021-06-10 02:48:14');
-
-/*Table structure for table `orders` */
-
-DROP TABLE IF EXISTS `orders`;
-
-CREATE TABLE `orders` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `number_of_product` int(11) NOT NULL,
-  `total_price` double(10,2) NOT NULL,
-  `discount` double(10,2) NOT NULL,
-  `grand_price` double(10,2) NOT NULL,
-  `profit` double(10,2) NOT NULL DEFAULT '0.00',
-  `sell_by` bigint(20) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `orders` */
-
-insert  into `orders`(`id`,`invoice_no`,`customer_name`,`customer_mobile`,`number_of_product`,`total_price`,`discount`,`grand_price`,`profit`,`sell_by`,`created_at`,`updated_at`) values (1,'210610100',NULL,NULL,2,180.00,0.00,180.00,0.00,1,'2021-06-10 02:48:14','2021-06-10 02:48:14');
-
 /*Table structure for table `otp_counts` */
 
 DROP TABLE IF EXISTS `otp_counts`;
@@ -590,6 +503,94 @@ CREATE TABLE `password_resets` (
 
 /*Data for the table `password_resets` */
 
+
+/*Table structure for table `products` */
+
+DROP TABLE IF EXISTS `products`;
+
+CREATE TABLE `products` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `sub_category_id` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `buy_qty` int(11) NOT NULL DEFAULT 0 COMMENT 'piece',
+  `delivered_qty` int(11) NOT NULL DEFAULT 0 COMMENT 'piece',
+  `available_qty` int(11) NOT NULL DEFAULT 0 COMMENT 'piece',
+  `warranty_claim_qty` int(11) NOT NULL COMMENT 'per pice',
+  `send_repair_qty` int(11) NOT NULL COMMENT 'per pice',
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1 = available 0= unavailable',
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `products` */
+
+insert  into `products`(`id`,`category_id`,`sub_category_id`,`brand_id`,`name`,`details`,`buy_qty`,`delivered_qty`,`available_qty`,`warranty_claim_qty`,`send_repair_qty`,`status`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,1,1,1,'Test1','Testy',10,0,10,0,0,1,NULL,NULL,1,NULL,'2021-08-29 18:27:24',NULL),(2,2,1,2,'Test1','Testy',20,0,20,0,0,1,NULL,NULL,1,NULL,'2021-08-29 18:27:24',NULL);
+
+/*Table structure for table `receive_from_vendors` */
+
+DROP TABLE IF EXISTS `receive_from_vendors`;
+
+CREATE TABLE `receive_from_vendors` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `receive_type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `delivery_person` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person_mobile_no` varbinary(20) DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `receive_from_vendors` */
+
+/*Table structure for table `receive_product_details` */
+
+DROP TABLE IF EXISTS `receive_product_details`;
+
+CREATE TABLE `receive_product_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `repair_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `receive_product_details` */
+
+/*Table structure for table `repair_product_details` */
+
+DROP TABLE IF EXISTS `repair_product_details`;
+
+CREATE TABLE `repair_product_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `repair_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `problem_desc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `repair_product_details` */
+
 /*Table structure for table `return_items` */
 
 DROP TABLE IF EXISTS `return_items`;
@@ -609,11 +610,9 @@ CREATE TABLE `return_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `return_items` */
-
-insert  into `return_items`(`id`,`product_id`,`qty`,`unit_price`,`total_price`,`discount`,`returnable_amount`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,1,5,30.00,150.00,0.00,150.00,NULL,NULL,1,NULL,'2021-06-13 02:02:13','2021-06-13 02:02:13'),(2,2,3,70.00,210.00,0.00,210.00,NULL,NULL,1,NULL,'2021-06-13 02:09:26','2021-06-13 02:09:26');
 
 /*Table structure for table `role_has_permissions` */
 
@@ -633,16 +632,17 @@ CREATE TABLE `role_has_permissions` (
 insert  into `role_has_permissions`(`permission_id`,`role_id`) values (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1);
 
 
-/*Table structure for table `selling_products` */
+/*Table structure for table `send_to_repair` */
 
-DROP TABLE IF EXISTS `selling_products`;
+DROP TABLE IF EXISTS `send_to_repair`;
 
-CREATE TABLE `selling_products` (
+CREATE TABLE `send_to_repair` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sell_price` double(10,2) NOT NULL DEFAULT '0.00' COMMENT 'per pice',
-  `status` int(11) NOT NULL DEFAULT '1' COMMENT '1 = available 0= unavailable',
+  `supplier_id` int(11) NOT NULL,
+  `delivery_person` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person_mobile_no` varbinary(20) DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `deleted_at` datetime DEFAULT NULL,
   `deleted_by` bigint(20) DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
@@ -650,11 +650,73 @@ CREATE TABLE `selling_products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/*Data for the table `selling_products` */
+/*Data for the table `send_to_repair` */
 
-insert  into `selling_products`(`id`,`name`,`details`,`sell_price`,`status`,`deleted_at`,`deleted_by`,`created_by`,`updated_by`,`created_at`,`updated_at`) values (1,'Mini Burger','Mini School Burger',60.00,1,NULL,NULL,1,1,'2021-06-09 01:25:21','2021-06-09 02:19:07'),(2,'Jamboo Burger','Double Petty Jamboo Burger',120.00,1,NULL,NULL,1,1,'2021-06-09 01:25:21','2021-06-10 01:58:37');
+/*Table structure for table `stock_details` */
+
+DROP TABLE IF EXISTS `stock_details`;
+
+CREATE TABLE `stock_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `warranty_period` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qty` int(11) NOT NULL,
+  `unit_price` double(10,2) DEFAULT NULL,
+  `total_price` double(10,2) DEFAULT NULL,
+  `discount` double(10,2) DEFAULT 0.00,
+  `grand_total` double(10,2) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `stock_details` */
+
+/*Table structure for table `stocks` */
+
+DROP TABLE IF EXISTS `stocks`;
+
+CREATE TABLE `stocks` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `invoice_no` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `number_of_product` int(11) NOT NULL,
+  `total_price` double(10,2) DEFAULT NULL,
+  `discount` double(10,2) DEFAULT NULL,
+  `grand_price` double(10,2) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `stocks` */
+
+/*Table structure for table `sub_categories` */
+
+DROP TABLE IF EXISTS `sub_categories`;
+
+CREATE TABLE `sub_categories` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categories_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `sub_categories` */
+
+insert  into `sub_categories`(`id`,`category_id`,`name`,`deleted_at`,`deleted_by`,`created_at`,`updated_at`) values (1,1,'Mouse',NULL,NULL,'2021-08-29 12:53:46','2021-08-29 12:53:46');
 
 /*Table structure for table `suppliers` */
 
@@ -663,8 +725,9 @@ DROP TABLE IF EXISTS `suppliers`;
 CREATE TABLE `suppliers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_person` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile_no` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `deleted_by` bigint(20) DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
@@ -677,5 +740,47 @@ CREATE TABLE `suppliers` (
 /*Data for the table `suppliers` */
 
 
+/*Table structure for table `warranty_claim` */
 
-insert  into `users`(`id`,`name`,`mobile_no`,`email`,`password`,`type`,`api_token`,`remember_token`,`deleted_at`,`created_at`,`updated_at`) values (1,'Super Admin','01675923371','admin@gmail.com','$2y$10$oGQg65L0wvthnZ5MAfSivu2OZtrU7USxeanvb3qu0LBa.MBzR4Qzq','system',NULL,NULL,NULL,'2021-06-01 03:17:56','2021-06-01 03:17:56');
+DROP TABLE IF EXISTS `warranty_claim`;
+
+CREATE TABLE `warranty_claim` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `delivery_person` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_person_mobile_no` varbinary(20) DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `warranty_claim` */
+
+/*Table structure for table `warranty_claim_details` */
+
+DROP TABLE IF EXISTS `warranty_claim_details`;
+
+CREATE TABLE `warranty_claim_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `claim_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `problem_desc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `purchase_date` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `warranty_claim_details` */
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

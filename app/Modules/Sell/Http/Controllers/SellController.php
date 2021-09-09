@@ -11,8 +11,8 @@ use App\Modules\Sell\Models\DailySell;
 use App\Modules\Sell\Models\MonthlySell;
 use App\Modules\Settings\Models\Settings;
 
-use App\Modules\SellingProduct\Models\SellingProduct;
-use App\Modules\SellingCategories\Models\SellingCategories;
+use App\Modules\Products\Models\Products;
+use App\Modules\Categories\Models\Categories;
 
 use App\Traits\UpdateSells;
 
@@ -62,18 +62,18 @@ class SellController extends Controller {
         if (!auth()->user()->can('Invoice Management'))
             abort(403);
 
-        $products = SellingProduct::select(DB::raw("CONCAT(name,' | price: ',sell_price) as product, id"))->where('status', 1)->pluck('product', 'id');
+        $products = Products::select("name as product", "id")->where('status', 1)->pluck('product', 'id');
 
         return view("Sell::create", compact('products'));
     }
 
     public function details(Request $request) {
-        $product = SellingProduct::select('name', 'id', 'sell_price')->where('id', $request->id)->first();
+        $product = Products::select('name', 'id', 'sell_price')->where('id', $request->id)->first();
         return response()->json($product);
     }
 
     public function categoryProducts(Request $request) {
-        $product = SellingProduct::select(DB::raw("CONCAT(name,' | price: ',sell_price) as product, id"))->where('status', 1)->where('sell_category_id', $request->category_id)->get(); //->pluck('product', 'id');
+        $product = Products::select(DB::raw("name as product, id"))->where('status', 1)->where('sell_category_id', $request->category_id)->get(); //->pluck('product', 'id');
         return response()->json($product);
     }
 
@@ -81,7 +81,7 @@ class SellController extends Controller {
 
         $this->validate($request, [
             'product_id' => 'required|array',
-            'product_id.*' => 'required|exists:selling_products,id',
+            'product_id.*' => 'required|exists:products,id',
             'qty' => 'required|array',
             'qty.*' => 'required|integer',
             'discount' => 'required|array',
@@ -97,7 +97,7 @@ class SellController extends Controller {
             $totalProfit = 0;
 
             foreach ($request->product_id as $id) {
-                $product = SellingProduct::where('id', $id)->where('status', 1)->first();
+                $product = Product::where('id', $id)->where('status', 1)->first();
 
                 if (!$product) {
                     Log::error("Invaid product id selected. Or Product may be out of stock. ID = " . $id);
@@ -155,7 +155,8 @@ class SellController extends Controller {
             $orderId = Order::create($order);
 
             if (isset($orderDetails)) {
-                foreach ($orderDetails as $od) {
+                foreach ($orderDetails as $od) 
+                {
                     $od['order_id'] = $orderId->id;
 
                     OrderDetail::create($od);

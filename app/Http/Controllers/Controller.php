@@ -10,4 +10,15 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function makeDD($obj, $specificName=null) {
+        $fieldName = 'Choose One ...';
+        if($specificName!=null)
+            $fieldName = 'Choose '.$specificName;
+        $arr = [''=>$fieldName];
+        foreach ($obj as $key => $value) {
+            $arr += [$key => $value];
+        }
+        return $arr;
+    }
 }

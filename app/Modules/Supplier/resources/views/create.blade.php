@@ -3,15 +3,35 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title" id="exampleModalLabel1">Create New Category</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Create New {{$pageInfo["title"]}}</h5>
             </div>
-            {{Form::open(['route'=>'categories.store','method'=>'post'])}}
+            {{Form::open(['route'=>'supplier.store','method'=>'post'])}}
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="recipient-name" class="control-label mb-10">Name : <span style="color:red">*</span></label>
-                    {{Form::text('name',null,['class'=>'form-control','required'])}}
+                    <label for="supplier_name" class="control-label mb-10">Supplier Name : <span style="color:red">*</span></label>
+                    {{Form::text('supplier_name',null,['class'=>'form-control','required'])}}
                 </div>
+
+                <div class="form-group">
+                    <label for="supplier_contact_person" class="control-label mb-10">Supplier Contact Person : 
+                        <span style="color:red">*</span></label>
+                    {{Form::text('supplier_contact_person',null,['class'=>'form-control','required'])}}
+                </div>
+
+                <div class="form-group">
+                    <label for="supplier_contact_no" class="control-label mb-10">Supplier Contact No : 
+                        <span style="color:red">*</span></label>
+                    {{Form::text('supplier_contact_no',null,['class'=>'form-control','required'])}}
+                </div>
+
+                <div class="form-group">
+                    <label for="supplier_address" class="control-label mb-10">Supplier Address
+                        <span style="color:red">*</span></label>
+                    {{Form::text('supplier_address',null,['class'=>'form-control','required'])}}
+                </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

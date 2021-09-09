@@ -17,23 +17,23 @@
                         <table class="table" id="educationInfo" class="educationInfo">
                             <tr>
                                 <th width="2%"><input type="checkbox" /></th>
-                                <td width="15%">
+                                <td width="12%">
                                     {{Form::select('category[]',category(),null,['class'=>'form-control','required','placeholder'=>"Select Group",'onchange'=>"getSubGroup(this.value)"])}}
                                 </td>
                                 <td width="15%">
                                     {{Form::select('sub_group[]',subGroup(),null,['id'=>'sub_group','class'=>'form-control','required','placeholder'=>"Select Sub Group"])}}
                                 </td>
-                                <td width="15%">
+                                <td width="13%">
                                     {{Form::select('brand[]',brand(),null,['class'=>'form-control','required','placeholder'=>"Select Brand"])}}
                                 </td>
                                 <td width="20%">
                                     {{Form::text('name[]',null,['class'=>'form-control','required',"autocomplete"=>"off", 'placeholder'=>"Product Name"])}}
                                 </td>
                                 <td width="20%">
-                                    {{Form::text('details[]',null,['class'=>'form-control','id'=>'details', "autocomplete"=>"off",'placeholder'=>"Product Details"])}}
+                                    {{Form::text('depriciation_period[]',null,['class'=>'form-control','id'=>'depriciation_period', "autocomplete"=>"off",'placeholder'=>"Depriciation Period(Years)"])}}
                                 </td>
-                                <td width="15%">
-                                    {{Form::number('buy_qty[]',null,['class'=>'form-control','required','placeholder'=>'Quantity'])}}
+                                <td width="20%">
+                                    {{Form::number('depriciation_amount[]',null,['class'=>'form-control','required','placeholder'=>'Depriciation Amount'])}}
                                 </td>
                             </tr>
                         </table>
