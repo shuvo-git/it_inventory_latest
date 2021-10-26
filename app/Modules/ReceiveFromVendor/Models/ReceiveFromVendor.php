@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReceiveFromVendor extends Model
 {
-    //
+    protected $table = "receive_from_vendors";
+    protected $guarded = ['id'];
 }

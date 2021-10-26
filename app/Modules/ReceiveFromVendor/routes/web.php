@@ -1,6 +1,6 @@
 <?php
 
-// use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 Route::group(['middleware'=>['web','auth']],function(){
-	Route::get('receive-from-vendor', 'ReceiveFromVendorController@welcome');
+	Route::resource('receive-from-vendor', ReceiveFromVendorController::class);
 });

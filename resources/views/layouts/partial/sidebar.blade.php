@@ -98,9 +98,7 @@
                 <li>
                     <a class="create_product" href="{{route('products.create')}}">Create Products</a>
                 </li>
-                <li>
-                    <a class="return" href="{{route('return.index')}}">Return Buy Products</a>
-                </li>
+                
             </ul>
         </li>
         @endcan
@@ -124,35 +122,20 @@
                 <li>
                     <a class="stock_out" href="{{route('stock-out.index')}}">Stock Out List</a>
                 </li>
+                <li>
+                    <a class="returns" href="{{route('returns.index')}}">Product Returns</a>
+                </li>
+                <li>
+                    <a class="send_to_repair" href="{{route('send-to-repair.index')}}">Send to Repair</a>
+                </li>
+                <li>
+                    <a class="receive_from_vendor" href="{{route('receive-from-vendor.index')}}">Receive From Vendor</a>
+                </li>
             </ul>
         </li>
         @endcan
 
-        @can('Invoice Management')
-        <li>
-            <a href="javascript:void(0);" data-toggle="collapse" class="sell_management" data-target="#sell_management">
-                <div class="pull-left">
-                    <i class="zmdi zmdi-money mr-20"></i>
-                    <span class="right-nav-text">Bill Management</span>
-                </div>
-                <div class="pull-right">
-                    <i class="zmdi zmdi-caret-down"></i>
-                </div>
-                <div class="clearfix"></div>
-            </a>
-            <ul id="sell_management" class="collapse collapse-level-1 two-col-list">
-                <li>
-                    <a class="all_invoice" href="{{route('sell.index')}}">Bill List</a>
-                </li>
-                <li>
-                    <a class="sell" href="{{route('sell.create')}}">Create New Bill</a>
-                </li>
-                {{--<li>
-                    <a class="computer_work" href="{{route('computerWork.index')}}">Computer Work</a>
-                </li>--}}
-            </ul>
-        </li>
-        @endcan
+        
 
         @can('Kitchen Management')
         <li>
@@ -190,7 +173,7 @@
                 <div class="clearfix"></div>
             </a>
             <ul id="reports" class="collapse collapse-level-1 two-col-list">
-                <li>
+                {{--<li>
                     <a class="all_invoice" href="{{route('sell.index')}}">All Invoice</a>
                 </li>
                 <li>
@@ -201,7 +184,7 @@
                 </li>
                 <li>
                     <a class="daily_report" href="{{route('report.daily')}}">Daily Reports</a>
-                </li>
+                </li-->
                 {{--<li>
                     <a class="monthly_report" href="{{route('report.monthly')}}">Monthly Reports</a>
                 </li>--}}

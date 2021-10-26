@@ -108,13 +108,13 @@
                                         <td>
                                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$product->id}}">View</button>
                                              @include('Products::show')
-                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit_{{$product->id}}">Edit</button>
+                                            {{--<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit_{{$product->id}}">Edit</button>
 
                                             @include('Products::edit')
 
                                             <button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$product->id}}')">Delete</button>
                                             {{Form::model($product,['route'=>['products.destroy',$product->id],'method'=>'delete','id'=>'delete-form-'.$product->id,'name'=>'delete-form-'.$product->id])}}
-                                            {{Form::close()}}
+                                            {{Form::close()}} --}}
                                         </td>
 
                                     </tr>

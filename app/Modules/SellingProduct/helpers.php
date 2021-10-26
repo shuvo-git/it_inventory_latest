@@ -1,5 +1,0 @@
-<?php
-
-/**
- *	SellingProduct Helpers
- */

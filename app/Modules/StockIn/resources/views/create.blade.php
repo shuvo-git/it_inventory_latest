@@ -46,7 +46,7 @@
 
     $(document).ready(function () {
 
-        highlight_nav('product_management', 'products');
+        highlight_nav('product_management', 'stock_in');
 
         $(window).keydown(function(event){
             if(event.keyCode == 13) {

@@ -1,7 +1,7 @@
 <div class="form-wrap">
     <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-        <label for="branch_or_division_id" class="control-label mb-10">Division / Branch : <span style="color:red">*</span></label>
-        {{Form::select('branch_or_division_id',$branchDivList,null,
+        <label for="supplier_id" class="control-label mb-10">Supplier : <span style="color:red">*</span></label>
+        {{Form::select('supplier_id',$supplierList,null,
         ['id'=>'sub_group','class'=>'form-control','required'])}}
     </div>
     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
@@ -17,9 +17,9 @@
         {{Form::text('remarks',null,['class'=>'form-control','required','placeholder'=>'Remarks'])}}
     </div>
     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-        <label for="return_date" class="control-label mb-10">Return Date : <span style="color:red">*</span></label>
-        {{Form::text('return_date',$StockIn->stockInDetails->return_date ?? request('return_date'),
-        ['class'=>'form-control datepicker','placeholder'=>'Return Date','autocomplete'=>"off"])}}
+        <label for="send_date" class="control-label mb-10">Send Date : <span style="color:red">*</span></label>
+        {{Form::text('send_date',$StockIn->stockInDetails->send_date ?? request('send_date'),
+        ['class'=>'form-control datepicker','placeholder'=>'Send Date','autocomplete'=>"off"])}}
     </div>
 </div>
 {{---------- TABLE ---------------------------------------------------------------------------}}
@@ -57,15 +57,15 @@
         </td>
         <td width="10%">
             {{Form::select('product_unique_id[]',$deliveredProductList,null,
-            ['class'=>'form-control','required'])}}
+            ['class'=>'form-control','required','onchange'=>"getProductExpiry(event,this.value)"])}}
         </td>
         <td width="10%">
-            {{Form::select('conditions[]',$conditionList,null,
-            ['class'=>'form-control','required','onchange'=>"getProductDetails(event,this.value)"])}}
+            {{Form::text('expiry_date[]',null,
+            ['class'=>'form-control','required','placeholder'=>"Expiry Date"])}}
         </td>
         <td width="20%">
-            {{Form::text('reason[]',null,
-            ['class'=>'form-control','required','placeholder'=>"Reason for returning"])}}
+            {{Form::text('problem_desc[]',null,
+            ['class'=>'form-control','required','placeholder'=>"Problem Description"])}}
         </td>
     </tr>
     @endif

@@ -11,36 +11,36 @@
     <meta name="author" content="Bangabandhu Safari Park"/>
     <meta name="author" content="Arnob"/>
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="{{asset('favicon/apple-icon-57x57.png')}}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{asset('favicon/apple-icon-60x60.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('favicon/apple-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('favicon/apple-icon-76x76.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('favicon/apple-icon-114x114.png')}}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('favicon/apple-icon-120x120.png')}}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{asset('favicon/apple-icon-144x144.png')}}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{asset('favicon/apple-icon-152x152.png')}}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-icon-180x180.png')}}">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{{asset('favicon/android-icon-192x192.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{asset('favicon/favicon-96x96.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{asset('favicon/manifest.json')}}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{url('favicon/apple-icon-57x57.png')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{url('favicon/apple-icon-60x60.png')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{url('favicon/apple-icon-72x72.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{url('favicon/apple-icon-76x76.png')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{url('favicon/apple-icon-114x114.png')}}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{url('favicon/apple-icon-120x120.png')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{url('favicon/apple-icon-144x144.png')}}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{url('favicon/apple-icon-152x152.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url('favicon/apple-icon-180x180.png')}}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{url('favicon/android-icon-192x192.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url('favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{url('favicon/favicon-96x96.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url('favicon/manifest.json')}}">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{asset('favicon/ms-icon-144x144.png')}}">
+    <meta name="msapplication-TileImage" content="{{url('favicon/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
 
     <!--alerts CSS -->
-    <link href="{{asset('vendors/bower_components/sweetalert/dist/sweetalert.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendors/bower_components/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css">
     <!-- Data table CSS -->
-    <link href="{{asset('vendors/bower_components/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('vendors/bower_components/datatables/media/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- select2 CSS -->
-    <link href="{{asset('vendors/bower_components/select2/dist/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('vendors/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('vendors/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('vendors/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 
     <!-- Bootstrap Wysihtml5 css -->
-    <link rel="stylesheet" href="{{asset('vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css')}}" />
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
     <!-- Custom CSS -->
-    <link href="{{asset('dist/css/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -93,59 +93,59 @@
     <!-- JavaScript -->
 
     <!-- jQuery -->
-    <script src="{{asset('vendors/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
     <!-- Moment JavaScript -->
-    <script type="text/javascript" src="{{asset('vendors/bower_components/moment/min/moment-with-locales.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('vendors/bower_components/moment/min/moment-with-locales.min.js')}}"></script>
 
     <!-- Data table JavaScript -->
-    <script src="{{asset('vendors/bower_components/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('dist/js/dataTables-data.js')}}"></script>
+    <script src="{{url('vendors/bower_components/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('dist/js/dataTables-data.js')}}"></script>
 
     <!-- Gallery JavaScript -->
-    <script src="{{asset('dist/js/isotope.js')}}"></script>
-    <script src="{{asset('dist/js/lightgallery-all.js')}}"></script>
-    <script src="{{asset('dist/js/gallery-data.js')}}"></script>
+    <script src="{{url('dist/js/isotope.js')}}"></script>
+    <script src="{{url('dist/js/lightgallery-all.js')}}"></script>
+    <script src="{{url('dist/js/gallery-data.js')}}"></script>
 
     <!-- Slimscroll JavaScript -->
-    <script src="{{asset('dist/js/jquery.slimscroll.js')}}"></script>
+    <script src="{{url('dist/js/jquery.slimscroll.js')}}"></script>
 
     <!-- Owl JavaScript -->
-    <script src="{{asset('vendors/bower_components/owl.carousel/dist/owl.carousel.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/owl.carousel/dist/owl.carousel.min.js')}}"></script>
 
     <!-- Switchery JavaScript -->
-    <script src="{{asset('vendors/bower_components/switchery/dist/switchery.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/switchery/dist/switchery.min.js')}}"></script>
 
     <!-- Select2 JavaScript -->
-    <script src="{{asset('vendors/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
     <!-- Sweet-Alert  -->
-    <script src="{{asset('vendors/bower_components/sweetalert/dist/sweetalert.min.js')}}"></script>
+    <script src="{{url('vendors/bower_components/sweetalert/dist/sweetalert.min.js')}}"></script>
 
     <!-- Bootstrap Datepicker JavaScript -->
-    <script type="text/javascript" src="{{asset('vendors/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('vendors/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <!-- Fancy Dropdown JS -->
-    <script src="{{asset('dist/js/dropdown-bootstrap-extended.js')}}"></script>
+    <script src="{{url('dist/js/dropdown-bootstrap-extended.js')}}"></script>
 
     <!-- wysuhtml5 Plugin JavaScript -->
 
 
-    <script src="{{asset('vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js')}}"></script>
+    <script src="{{url('vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js')}}"></script>
 
     <!-- Bootstrap Wysuhtml5 Init JavaScript -->
-    <script src="{{asset('dist/js/bootstrap-wysuhtml5-data.js')}}"></script>
+    <script src="{{url('dist/js/bootstrap-wysuhtml5-data.js')}}"></script>
 
 
     <!-- Init JavaScript -->
-    <script src="{{asset('dist/js/init.js')}}"></script>
-    <script src="{{asset('js/highlight-nav.js')}}"></script>
-    <script src="{{asset('js/show-hide-sweet-alert.js')}}"></script>
-    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
-    <script src="{{asset('js/custom.js')}}"></script>
+    <script src="{{url('dist/js/init.js')}}"></script>
+    <script src="{{url('js/highlight-nav.js')}}"></script>
+    <script src="{{url('js/show-hide-sweet-alert.js')}}"></script>
+    <script src="{{url('js/typeahead.bundle.js')}}"></script>
+    <script src="{{url('js/custom.js')}}"></script>
 
 
     <script>

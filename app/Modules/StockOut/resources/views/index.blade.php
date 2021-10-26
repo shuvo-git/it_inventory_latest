@@ -97,7 +97,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        highlight_nav('stock_management', 'stock_in');
+        highlight_nav('stock_management', 'stock_out');
     });
 </script>
 @endpush

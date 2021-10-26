@@ -64,18 +64,18 @@
 
 @push('scripts')
 <!-- Morris Charts CSS -->
-<link href="{{asset('vendors/bower_components/morris.js/morris.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{url('vendors/bower_components/morris.js/morris.css')}}" rel="stylesheet" type="text/css"/>
 <!-- Progressbar Animation JavaScript -->
-<script src="{{asset('vendors/bower_components/waypoints/lib/jquery.waypoints.min.js')}}"></script>
-<script src="{{asset('vendors/bower_components/jquery.counterup/jquery.counterup.min.js')}}"></script>
+<script src="{{url('vendors/bower_components/waypoints/lib/jquery.waypoints.min.js')}}"></script>
+<script src="{{url('vendors/bower_components/jquery.counterup/jquery.counterup.min.js')}}"></script>
 
 <!-- Sparkline JavaScript -->
 <!-- Morris Charts JavaScript -->
 <!-- ChartJS JavaScript -->
-<script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('vendors/bower_components/raphael/raphael.min.js')}}"></script>
+<script src="{{url('vendors/chart.js/Chart.min.js')}}"></script>
+<script src="{{url('vendors/bower_components/raphael/raphael.min.js')}}"></script>
 
-<script src="{{asset('vendors/bower_components/morris.js/morris.min.js')}}"></script>
+<script src="{{url('vendors/bower_components/morris.js/morris.min.js')}}"></script>
 <script>
 
 $(document).ready(function () {

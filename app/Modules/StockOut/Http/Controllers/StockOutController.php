@@ -16,6 +16,7 @@ use App\Modules\StockOut\Models\StockOutDetails;
 
 class StockOutController extends Controller
 {
+    var $_DELIVERED = 2;
     public function index(Request $request)
     {
         $StockOuts = $this->__filter($request);
@@ -99,6 +100,8 @@ class StockOutController extends Controller
                     'created_at'            => Carbon::now(),
                 ];
                 Products::find($request->product_id[$i])->decrement('available_qty');
+                StockInDetails::where('id',$request->product_unique_id[$i])
+                    ->update(['status'=>$this->_DELIVERED]);
             }
             
             StockOutDetails::insert($data);

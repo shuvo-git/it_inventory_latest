@@ -83,7 +83,7 @@
 
     $(document).ready(function () {
 
-        highlight_nav('product_management', 'products');
+        highlight_nav('product_management', 'create_product');
 
         $(window).keydown(function(event){
             if(event.keyCode == 13) {

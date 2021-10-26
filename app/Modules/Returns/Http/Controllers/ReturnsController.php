@@ -16,6 +16,7 @@ use App\Modules\StockIn\Models\StockInDetails;
 
 class ReturnsController extends Controller
 {
+    var $_RETURNS = 3;
     public function index(Request $request)
     {
         $Returns = $this->__filter($request);
@@ -45,8 +46,12 @@ class ReturnsController extends Controller
         $deliveredProductList = $this->makeDD(StockInDetails::where('status',2)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
         $branchDivList = $this->makeDD(DB::table('branch')->get()->pluck('br_name','id'),"Branch/Division");
         $pageInfo = ["title"=>"Create New Return"];
-
-        return view("Returns::create",compact('pageInfo','branchDivList','productList','deliveredProductList'));
+        $conditionList = $this->makeDD( [
+            1=>'Good',
+            2=>'Partially Damaged',
+            3=>'Fully Damaged',
+        ] ,"Condition");
+        return view("Returns::create",compact('pageInfo','branchDivList','productList','deliveredProductList','conditionList'));
     }
 
     public function store(Request $request)
@@ -63,6 +68,8 @@ class ReturnsController extends Controller
             'product_id.*' => 'required|integer|min:1',
             'product_unique_id' => 'required|array',
             'product_unique_id.*' => 'required|integer|min:1',
+            'conditions' => 'required|array',
+            'conditions.*' => 'required|integer|min:1',
             'reason' => 'required|array',
             'reason.*' => 'nullable|string|min:3,max:300',
         ]);
@@ -89,9 +96,12 @@ class ReturnsController extends Controller
 
                     'return_id'   => $return->id,
                     'stockin_details_id'  => $request->product_unique_id[$i],
+                    'conditions'  => $request->conditions[$i],
                     'reason'      => $request->reason[$i],
                     'created_at'  => Carbon::now(),
                 ];
+                StockInDetails::where('id',$request->product_unique_id[$i])
+                    ->update(['status'=>$this->_RETURNS]);
             }
             
             ReturnDetails::insert($data);
@@ -115,8 +125,13 @@ class ReturnsController extends Controller
         $Return = Returns::findOrFail($id);
         $ReturnDetails = ReturnDetails::where('return_id',$Return->id)->get();
         $pageInfo = ["title"=>"View Return "];
+        $conditionList = $this->makeDD( [
+            1=>'Good',
+            2=>'Partially Damaged',
+            3=>'Fully Damaged',
+        ] ,"Condition");
 
-        return view("Returns::show",compact('pageInfo','ReturnDetails','Return'));
+        return view("Returns::show",compact('pageInfo','ReturnDetails','Return','conditionList'));
     }
 
     public function getDeliveredProduct(Request $request){

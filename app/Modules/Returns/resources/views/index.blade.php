@@ -102,7 +102,7 @@
 <script>
     $(document).ready(function () 
     {
-        highlight_nav('stock_management', 'stock_in');
+        highlight_nav('stock_management', 'returns');
     });
 </script>
 @endpush
