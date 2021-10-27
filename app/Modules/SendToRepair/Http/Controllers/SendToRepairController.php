@@ -2,6 +2,7 @@
 
 namespace App\Modules\SendToRepair\Http\Controllers;
 
+use App\Classes\StockStatus;
 use App\Http\Controllers\Controller;
 use App\Modules\Products\Models\Products;
 use App\Modules\SendToRepair\Models\RepairDetails;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Log;
 
 class SendToRepairController extends Controller
 {
-    var $_IN_VENDOR = 4;
     public function index(Request $request)
     {
         $Repairs = $this->__filter($request);
@@ -40,7 +40,8 @@ class SendToRepairController extends Controller
         ->paginate(20);
     }
 
-    public function create(){
+    public function create()
+    {
         $supplierList = $this->makeDD(Supplier::all()->pluck('supplier_name','id'),"Supplier"); 
         $productList = $this->makeDD(Products::all()->pluck('name','id'),"Product");
         $deliveredProductList = $this->makeDD(StockInDetails::where('status',3)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
@@ -94,7 +95,7 @@ class SendToRepairController extends Controller
                     'created_at'  => Carbon::now(),
                 ];
                 StockInDetails::where('id',$request->product_unique_id[$i])
-                    ->update(['status'=>$this->_IN_VENDOR]);
+                    ->update(['status'=>StockStatus::$IN_VENDOR]);
             }
             
             RepairDetails::insert($data);

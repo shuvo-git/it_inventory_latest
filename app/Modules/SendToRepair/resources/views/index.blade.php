@@ -76,12 +76,10 @@
                             <table class="table table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Invoice No.</th>
-                                        <th>Total Product</th>
-                                        <th>Price</th>
-                                        <th>Discount</th>
-                                        <th>Grand Total</th>
-                                        <th>Customer Mobile</th>
+                                        <th>SL.</th>
+                                        <th>Supplier</th>
+                                        <th>Delivery Person Name</th>
+                                        <th>Mobile No.</th>
                                         <th>Purchase Date</th>
                                         <th>Action</th>
 
@@ -89,19 +87,15 @@
                                 </thead>
                                 <tbody>
                                     @if($Repairs->count()>0)
-                                    @foreach($Repairs as $Repair)
+                                    @foreach($Repairs as $key=>$Repair)
                                     <tr>
-                                        <td>{{$Repair->invoice_no ?? ''}}</td>
-                                        <td>{{$Repair->number_of_product ?? ''}}</td>
-                                        <td>{{$Repair->total_price ?? ''}}</td>
-                                        <td>{{$Repair->discount ?? ''}}</td>
-                                        <td>{{$Repair->grand_price ?? ''}}</td>
-                                        <td>{{$Repair->customer_mobile ?? ''}}</td>
-                                        <td>{{$Repair->created_at->format('m-d-Y') ?? ''}}</td>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$Repair->getSupplier->supplier_name ?? ''}}</td>
+                                        <td>{{$Repair->delivery_person ?? ''}}</td>
+                                        <td>{{$Repair->delivery_person_mobile_no ?? ''}}</td>
+                                        <td>{{\Carbon\Carbon::parse($Repair->send_date)->format('d M, Y') ?? ''}}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$Repair->id}}"><i class="fa fa-eye"></i></button>
-                                            
-                                            
                                         </td>
                                     </tr>
                                     @endforeach
