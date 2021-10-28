@@ -3,7 +3,7 @@
 namespace App\Classes;
 
 class StockStatus{
-    public static $IN_STOCK = 10;
+    public static $IN_STOCK = 1;
     public static $IN_BRANCH = 15;
     
     public static $BR_RETURN = 20;

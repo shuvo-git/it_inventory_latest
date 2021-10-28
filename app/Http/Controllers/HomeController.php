@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\StockStatus;
 use Illuminate\Http\Request;
 use App\Modules\Sell\Models\DailySell;
 use App\Modules\Sell\Models\MonthlySell;
@@ -33,7 +34,7 @@ class HomeController extends Controller {
     public function index() {
         $totalProducts = Products::with('category')
             ->selectRaw('sum(available_qty) as total,category_id')
-            ->where('status',1)
+            ->where('status',StockStatus::$IN_STOCK)
             ->groupBy('category_id')
             ->get(); 
 

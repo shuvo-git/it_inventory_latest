@@ -2,6 +2,7 @@
 
 namespace App\Modules\Returns\Http\Controllers;
 
+use App\Classes\StockStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ use App\Modules\StockIn\Models\StockInDetails;
 
 class ReturnsController extends Controller
 {
-    var $_RETURNS = 3;
+    
     public function index(Request $request)
     {
         $Returns = $this->__filter($request);
@@ -43,7 +44,7 @@ class ReturnsController extends Controller
     public function create(){
         
         $productList = $this->makeDD(Products::all()->pluck('name','id'),"Product");
-        $deliveredProductList = $this->makeDD(StockInDetails::where('status',2)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
+        $deliveredProductList = $this->makeDD(StockInDetails::where('status',StockStatus::$IN_BRANCH)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
         $branchDivList = $this->makeDD(DB::table('branch')->get()->pluck('br_name','id'),"Branch/Division");
         $pageInfo = ["title"=>"Create New Return"];
         $conditionList = $this->makeDD( [
@@ -101,7 +102,7 @@ class ReturnsController extends Controller
                     'created_at'  => Carbon::now(),
                 ];
                 StockInDetails::where('id',$request->product_unique_id[$i])
-                    ->update(['status'=>$this->_RETURNS]);
+                    ->update(['status'=>StockStatus::$BR_RETURN]);
             }
             
             ReturnDetails::insert($data);
@@ -138,7 +139,7 @@ class ReturnsController extends Controller
         $id = $request->product_id;
         $deliveredStocksById = StockInDetails::select('id','unique_id')
             ->where('product_id',$id)
-            ->where('status',2)
+            ->where('status',StockStatus::$IN_BRANCH)
             ->get();
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($deliveredStocksById as $k => $v) 

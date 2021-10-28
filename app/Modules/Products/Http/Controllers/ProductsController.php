@@ -2,6 +2,7 @@
 
 namespace App\Modules\Products\Http\Controllers;
 
+use App\Classes\StockStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

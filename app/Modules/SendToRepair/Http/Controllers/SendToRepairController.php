@@ -44,7 +44,7 @@ class SendToRepairController extends Controller
     {
         $supplierList = $this->makeDD(Supplier::all()->pluck('supplier_name','id'),"Supplier"); 
         $productList = $this->makeDD(Products::all()->pluck('name','id'),"Product");
-        $deliveredProductList = $this->makeDD(StockInDetails::where('status',3)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
+        $deliveredProductList = $this->makeDD(StockInDetails::where('status',StockStatus::$IN_BRANCH)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
         $pageInfo = ["title"=>"Send to Repair"];
         
         return view("SendToRepair::create",compact('pageInfo','supplierList','productList','deliveredProductList'));
@@ -116,7 +116,7 @@ class SendToRepairController extends Controller
         $id = $request->product_id;
         $deliveredStocksById = StockInDetails::select('id','unique_id')
             ->where('product_id',$id)
-            ->where('status',3)
+            ->where('status',StockStatus::$IN_BRANCH)
             ->get();
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($deliveredStocksById as $k => $v) 

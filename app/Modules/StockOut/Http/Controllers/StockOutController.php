@@ -2,6 +2,7 @@
 
 namespace App\Modules\StockOut\Http\Controllers;
 
+use App\Classes\StockStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,6 @@ use App\Modules\StockOut\Models\StockOutDetails;
 
 class StockOutController extends Controller
 {
-    var $_DELIVERED = 2;
     public function index(Request $request)
     {
         $StockOuts = $this->__filter($request);
@@ -30,7 +30,8 @@ class StockOutController extends Controller
         return view("StockOut::index",compact('StockOuts','pageInfo','branchDivList','productList'));
     }
 
-    private function __filter($request) {
+    private function __filter($request) 
+    {
         $stock_in = StockOut:://with('StockInDetails');  
         query();
 
@@ -99,10 +100,21 @@ class StockOutController extends Controller
                     'stockin_details_id'    => $request->stockin_details_id[$i],
                     'created_at'            => Carbon::now(),
                 ];
+
+                
                 Products::find($request->product_id[$i])->decrement('available_qty');
-                StockInDetails::where('id',$request->product_unique_id[$i])
-                    ->update(['status'=>$this->_DELIVERED]);
+                try {
+                    \Log::info("Updating Status for Stockout::$request->product_id[$i]");
+                    StockInDetails::where('id',$request->product_id[$i])
+                    ->update(['status'=>StockStatus::$IN_BRANCH]);
+                    \Log::info("Updated Status for Stockout::$request->product_id[$i], \n ");
+                } catch (\Throwable $th) {
+                    \Log::debug($th->getMessage());
+                }
+                
+                    
             }
+            
             
             StockOutDetails::insert($data);
             
@@ -172,7 +184,7 @@ class StockOutController extends Controller
         $id = $request->product_id;
         $stocksById = StockInDetails::select('id','unique_id')
             ->where('product_id',$id)
-            ->where('status',1)
+            ->where('status',StockStatus::$IN_STOCK)
             ->get();
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($stocksById as $k => $v) 
