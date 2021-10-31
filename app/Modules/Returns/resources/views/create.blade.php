@@ -73,11 +73,12 @@
         $.ajax({
             method: "POST",
             url: "{{ url('get-delivered-stocks') }}",
-            data: { product_id: id },
+            data: { product_id: id,branch_id: $("#branch_or_division_id").val() },
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         })
         .done(function( data ) {
-            if(data) {
+            if(data) 
+            {
                 console.log(data);
                 $(event.target).parent().next().children(0).html(data)  ;
                 //$('#stockin_details_id').empty().append(data);

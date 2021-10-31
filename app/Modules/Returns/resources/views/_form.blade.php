@@ -2,7 +2,7 @@
     <div class="col-md-3 col-sm-12 col-xs-12 form-group">
         <label for="branch_or_division_id" class="control-label mb-10">Division / Branch : <span style="color:red">*</span></label>
         {{Form::select('branch_or_division_id',$branchDivList,null,
-        ['id'=>'sub_group','class'=>'form-control','required'])}}
+        ['id'=>'branch_or_division_id','class'=>'form-control','required'])}}
     </div>
     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
         <label for="delivery_person" class="control-label mb-10">Delivery Person : <span style="color:red">*</span></label>

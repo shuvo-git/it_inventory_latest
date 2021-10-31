@@ -20,7 +20,7 @@ class StockOutController extends Controller
     public function index(Request $request)
     {
         $StockOuts = $this->__filter($request);
-        $branchDivList = $this->makeDD(DB::table('branch')->get()->pluck('br_name','id'),"Branch/Division");
+        $branchDivList = $this->makeDD(DB::table('branch')->orderBy("br_type","ASC")->orderBy("br_name","ASC")->get()->pluck('br_name','id'),"Branch/Division");
         $productList = $this->makeDD(
             Products::select('id',DB::raw("CONCAT(name,' ( Available Quantity - ',available_qty,')') as name") )->where([['available_qty','>',0]])->pluck('name','id'),
             "Product"
@@ -48,7 +48,7 @@ class StockOutController extends Controller
     }
 
     public function create(){
-        $branchDivList = $this->makeDD(DB::table('branch')->get()->pluck('br_name','id'),"Branch/Division");
+        $branchDivList = $this->makeDD(DB::table('branch')->orderBy("br_type","ASC")->orderBy("br_name","ASC")->get()->pluck('br_name','id'),"Branch/Division");
         $productList = $this->makeDD(
             Products::select(
                     'id',
@@ -103,13 +103,14 @@ class StockOutController extends Controller
 
                 
                 Products::find($request->product_id[$i])->decrement('available_qty');
-                try {
-                    \Log::info("Updating Status for Stockout::$request->product_id[$i]");
-                    StockInDetails::where('id',$request->product_id[$i])
+                try 
+                {
+                    Log::info("Updating Status for Stockout:: ".$request->stockin_details_id[$i]);
+                    StockInDetails::where('id',$request->stockin_details_id[$i])
                     ->update(['status'=>StockStatus::$IN_BRANCH]);
-                    \Log::info("Updated Status for Stockout::$request->product_id[$i], \n ");
+                    Log::info("Updated Status for Stockout:: ".$request->stockin_details_id[$i]);
                 } catch (\Throwable $th) {
-                    \Log::debug($th->getMessage());
+                    Log::debug($th->getMessage());
                 }
                 
                     

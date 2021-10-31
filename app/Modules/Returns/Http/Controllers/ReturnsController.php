@@ -44,8 +44,11 @@ class ReturnsController extends Controller
     public function create(){
         
         $productList = $this->makeDD(Products::all()->pluck('name','id'),"Product");
-        $deliveredProductList = $this->makeDD(StockInDetails::where('status',StockStatus::$IN_BRANCH)->select('id','unique_id')->pluck('unique_id','id'),"Product Unique ID");
-        $branchDivList = $this->makeDD(DB::table('branch')->get()->pluck('br_name','id'),"Branch/Division");
+        $deliveredProductList = $this->makeDD(
+            StockInDetails::where('status',StockStatus::$IN_BRANCH)->select('id','unique_id')->pluck('unique_id','id'),
+            "Product Unique ID"
+        );
+        $branchDivList = $this->makeDD(DB::table('branch')->orderBy("br_type","ASC")->orderBy("br_name","ASC")->get()->pluck('br_name','id'),"Branch/Division");
         $pageInfo = ["title"=>"Create New Return"];
         $conditionList = $this->makeDD( [
             1=>'Good',
@@ -135,17 +138,30 @@ class ReturnsController extends Controller
         return view("Returns::show",compact('pageInfo','ReturnDetails','Return','conditionList'));
     }
 
-    public function getDeliveredProduct(Request $request){
+    public function getDeliveredProduct(Request $request)
+    {
         $id = $request->product_id;
-        $deliveredStocksById = StockInDetails::select('id','unique_id')
-            ->where('product_id',$id)
-            ->where('status',StockStatus::$IN_BRANCH)
+        $br_id = $request->branch_id;
+
+        $deliveredStocksById = DB::table('stock_details')
+            ->select('stock_details.id','stock_details.unique_id')
+            ->join('stockout_details','stockout_details.stockin_details_id','=','stock_details.id')
+            ->join('stock_outs','stock_outs.id','=','stockout_details.stockout_id')
+            ->where('stock_details.status',StockStatus::$IN_BRANCH)
+            ->where('stock_outs.branch_or_division_id',$br_id)
+            ->where('stock_details.product_id',$id)
             ->get();
+            /*DB::raw('SELECT stock_details.id,stock_details.unique_id FROM `stock_details` 
+            JOIN stockout_details on stockout_details.stockin_details_id = stock_details.id 
+            JOIN stock_outs on stock_outs.id = stockout_details.stockout_id and stock_outs.branch_or_division_id = '.$br_id.'
+            WHERE stock_details.product_id = '.$id)->get();*/
+
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($deliveredStocksById as $k => $v) 
         {
             $str .= '<option value="'.$v->id.'">'. $v->unique_id.'</option>';
         }
+
         return $str;
     }
 }
