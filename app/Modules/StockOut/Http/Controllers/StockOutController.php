@@ -97,6 +97,7 @@ class StockOutController extends Controller
                 $data[] = [
 
                     'stockout_id'           => $stock_out->id,
+                    'product_id'           => $request->product_id[$i],
                     'stockin_details_id'    => $request->stockin_details_id[$i],
                     'created_at'            => Carbon::now(),
                 ];
@@ -185,7 +186,7 @@ class StockOutController extends Controller
         $id = $request->product_id;
         $stocksById = StockInDetails::select('id','unique_id')
             ->where('product_id',$id)
-            ->where('status',StockStatus::$IN_STOCK)
+            ->whereIn('status',[StockStatus::$IN_STOCK,StockStatus::$BR_RETURN,StockStatus::$FROM_VENDOR])
             ->get();
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($stocksById as $k => $v) 

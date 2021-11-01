@@ -129,7 +129,7 @@
                     <a class="send_to_repair" href="{{route('send-to-repair.index')}}">Send to Repair</a>
                 </li>
                 <li>
-                    <a class="receive_from_vendor" href="{{route('receive-from-vendor.index')}}">Receive From Vendor</a>
+                    <a class="receive_from_vendor" href="{{route('return-from-vendor.index')}}">Return From Vendor</a>
                 </li>
             </ul>
         </li>

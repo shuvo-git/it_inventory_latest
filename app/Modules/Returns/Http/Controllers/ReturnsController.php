@@ -99,11 +99,14 @@ class ReturnsController extends Controller
                 $data[] = [
 
                     'return_id'   => $return->id,
+                    'product_id'  => $request->product_id[$i],
                     'stockin_details_id'  => $request->product_unique_id[$i],
                     'conditions'  => $request->conditions[$i],
                     'reason'      => $request->reason[$i],
                     'created_at'  => Carbon::now(),
                 ];
+
+                Products::find($request->product_id[$i])->increment('available_qty');
                 StockInDetails::where('id',$request->product_unique_id[$i])
                     ->update(['status'=>StockStatus::$BR_RETURN]);
             }

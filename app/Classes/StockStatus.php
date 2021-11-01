@@ -11,7 +11,7 @@ class StockStatus{
     public static $BR_DAMAGED = 55;
 
     public static $IN_VENDOR = 35;
-    public static $FROM_VENDOR = 35;
+    public static $FROM_VENDOR = 40;
 
-    public function __construct() { }
+    public function __construct() {}
 }

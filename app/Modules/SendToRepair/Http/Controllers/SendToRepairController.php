@@ -116,7 +116,7 @@ class SendToRepairController extends Controller
         $id = $request->product_id;
         $deliveredStocksById = StockInDetails::select('id','unique_id')
             ->where('product_id',$id)
-            ->where('status',StockStatus::$IN_BRANCH)
+            ->where('status',StockStatus::$BR_RETURN)
             ->get();
         $str = '<option value="">Choose Product Unique ID</option>';
         foreach ($deliveredStocksById as $k => $v) 
