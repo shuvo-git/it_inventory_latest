@@ -50,7 +50,8 @@
                             <table class="table table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Branch</th>
+                                        <th>SL</th>
+                                        <th>Supplier</th>
                                         <th>Delivery Person</th>
                                         <th>Mobile</th>
                                         <th>Date</th>
@@ -61,23 +62,20 @@
                                 </thead>
                                 <tbody>
                                     @if($ReturnFromVendors->count()>0)
-                                    @foreach($ReturnFromVendors as $Return)
+                                    @foreach($ReturnFromVendors as $k=>$Return)
                                     <tr>
-                                        <td>{{$Return->branch->br_name ?? ''}}</td>
-                                        <td>{{$Return->delivery_person ?? ''}}</td>
-                                        <td>{{$Return->delivery_person_mobile_no ?? ''}}</td>
-                                        <td>{{$Return->date($Return->return_date) ?? ''}}</td>
+                                        <td>{{$k+1}}</td>
+                                        <td>{{$Return->supplier->supplier_name ?? ''}}</td>
+                                        <td>{{$Return->delivery_person_name ?? ''}}</td>
+                                        <td>{{$Return->delivery_person_phn_no ?? ''}}</td>
+                                        <td>{{$Return->date($Return->delivery_date) ?? ''}}</td>
                                         <td>{{$Return->remarks ?? ''}}</td>
                                         <td>
                                             {{--<a href="{{url('return-from-vendor/'.$Return->id.'/edit')}}" class="btn btn-sm btn-primary">Edit</a>--}}
                                             <a href="{{url('return-from-vendor/'.$Return->id)}}" class="btn btn-sm btn-primary">View</a>
-
                                             {{--@include('StockIn::edit') --}}
-
-                                            <button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$Return->id}}')">Delete</button>
                                             
                                             {{Form::model($Return,['route'=>['return-from-vendor.destroy',$Return->id],'method'=>'delete','id'=>'delete-form-'.$Return->id,'name'=>'delete-form-'.$Return->id])}}
-
                                             {{Form::close()}}
                                         </td>
                                     </tr>

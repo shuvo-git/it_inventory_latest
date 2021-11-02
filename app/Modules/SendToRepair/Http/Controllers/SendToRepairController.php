@@ -111,6 +111,18 @@ class SendToRepairController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $SendToRepair = SendToRepair::findOrFail($id);
+        $RepairDetails = RepairDetails::where('return_from_vendor_id',$SendToRepair->id)->get();
+        $pageInfo = ["title"=>"View Send to Repair"];
+        $conditionList = $this->makeDD( [
+            4=>'Repaired',
+            5=>'Damaged',
+        ] ,"Condition");
+
+        return view("ReturnFromVendor::show",compact('pageInfo','retVendor','retVendorDetails','conditionList'));
+    }
 
     public function getReturnedProduct(Request $request){
         $id = $request->product_id;

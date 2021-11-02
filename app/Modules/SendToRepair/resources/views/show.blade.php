@@ -1,41 +1,98 @@
-<div class="modal fade" id="show_{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title" id="exampleModalLabel1">Sell Details - {{$order->invoice_no}}</h5>
-            </div>
-            
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Sl.</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th>Total Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i=1; ?>
-                        @foreach($order->details as $detail)
-                        <tr>
-                            <td>{{$i++}}</td>
-                            <td>{{$detail->product->name ?? 'N/A'}}</td>
-                            <td>{{$detail->qty ?? 'N/A'}}</td>
-                            <td>{{$detail->unit_price ?? 'N/A'}}</td>
-                            <td>{{$detail->total_price ?? 'N/A'}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+@extends('layouts.app')
 
-           
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">{{$pageInfo["title"]}}</h6>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                        @include('ReturnFromVendor::table_show')
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@endsection
+@push('scripts')
+
+<script>
+    var count=1;
+
+    function getDetails(id,value)
+    {
+        $.ajax({
+            method: "POST",
+            url: "{{route('products.details')}}",
+            data: { name: value },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        })
+        .done(function( data ) {
+            if(data) {
+                $("#buy_qty").val(data.buy_qty);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        highlight_nav('product_management', 'products');
+
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+
+
+    function remove(id) {
+        $("#remove_"+id).remove();
+    }
+
+
+    var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+            var matches, substringRegex;
+
+            // an array that will be populated with substring matches
+            matches = [];
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+
+            // iterate through the pool of strings and for any string that
+            // contains the substring `q`, add it to the `matches` array
+            $.each(strs, function(i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+            });
+
+            cb(matches);
+        };
+    };
+
+    function getSubGroup(goupId) {
+        $.ajax({
+            method: "POST",
+            url: "{{route('products.subGroup')}}",
+            data: { goupId: goupId },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        })
+        .done(function( data ) {
+            if(data) {
+                $("#buy_price_"+id).val(data.buy_price);
+                $("#short_list_qty_"+id).val(data.short_list_qty);
+            }
+        });
+    }
+</script>
+@endpush

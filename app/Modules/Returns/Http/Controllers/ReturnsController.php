@@ -94,8 +94,7 @@ class ReturnsController extends Controller
 
             $cnt = count($request->product_id);
             for ($i = 0; $i < $cnt; $i++) 
-            {
-                
+            {   
                 $data[] = [
 
                     'return_id'   => $return->id,

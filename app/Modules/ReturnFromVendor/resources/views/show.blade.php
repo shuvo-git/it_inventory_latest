@@ -12,7 +12,7 @@
             </div>
             <div class="panel-wrapper collapse in">
                 <div class="panel-body">
-                        @include('Returns::table_show')
+                        @include('ReturnFromVendor::table_show')
                 </div>
             </div>
         </div>

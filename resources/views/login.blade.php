@@ -53,7 +53,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-xs-12">
                                         <div class="mb-30">
-                                            <h3 class="text-center txt-dark mb-10">Sign in to {{ config('app.name', 'Bangabandhu Safari Park') }}</h3>
+                                            <h3 class="text-center txt-dark mb-10">Sign in to {{ config('app.name', 'IT Inventory') }}</h3>
                                         </div>	
                                         <div class="form-wrap">
                                             {{Form::open(['route'=>'login','method'=>'post'])}}

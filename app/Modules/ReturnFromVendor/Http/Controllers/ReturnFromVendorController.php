@@ -6,10 +6,14 @@ use App\Classes\StockStatus;
 use App\Http\Controllers\Controller;
 use App\Modules\Products\Models\Products;
 use App\Modules\ReturnFromVendor\Models\ReturnFromVendor;
+use App\Modules\ReturnFromVendor\Models\ReturnFromVendorDetails;
 use App\Modules\StockIn\Models\StockInDetails;
 use App\Modules\Supplier\Models\Supplier;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ReturnFromVendorController extends Controller
 {
@@ -63,7 +67,88 @@ class ReturnFromVendorController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        $this->validate($request, [
+            
+            'supplier_id' => 'required|integer|min:1',
+            'delivery_person_name' => 'required|string|min:3,max:50',
+            'delivery_person_phn_no' => 'required|digits:11',
+            'remarks' => 'nullable|string|max:300',
+            'return_date' => 'required|date_format:Y-m-d',
+
+            'product_id' => 'required|array',
+            'product_id.*' => 'required|integer|min:1',
+            'product_unique_id' => 'required|array',
+            'product_unique_id.*' => 'required|integer|min:1',
+            'conditions' => 'required|array',
+            'conditions.*' => 'required|integer|min:1',
+            'reason' => 'required|array',
+            'reason.*' => 'nullable|string|min:3,max:300',
+        ]);
+        
+        
+        try {
+            DB::begintransaction();
+            
+            $ret_v = new ReturnFromVendor();
+            $ret_v->supplier_id             = $request->supplier_id;
+            $ret_v->delivery_person_name    = $request->delivery_person_name;
+            $ret_v->delivery_person_phn_no  = $request->delivery_person_phn_no;
+            $ret_v->remarks                 = $request->remarks;
+            $ret_v->delivery_date           = $request->return_date;
+            $ret_v->created_by              = auth()->user()->id;
+            $ret_v->save();
+
+            
+
+            $cnt = count($request->product_id);
+            for ($i = 0; $i < $cnt; $i++) 
+            {   
+                $data[] = [
+
+                    'return_from_vendor_id'     => $ret_v->id,
+                    'product_id'                => $request->product_id[$i],
+                    'stockin_details_id'        => $request->product_unique_id[$i],
+                    'condition'                => $request->conditions[$i],
+                    'remarks'                    => $request->reason[$i],
+                    'created_at'                => Carbon::now(),
+                ];
+
+                if($request->conditions[$i] == 4){
+                    Products::find($request->product_id[$i])->increment('available_qty');
+                    StockInDetails::where('id',$request->product_unique_id[$i])
+                        ->update(['status'=>StockStatus::$IN_STOCK]);
+                }
+                else{
+                    StockInDetails::where('id',$request->product_unique_id[$i])
+                        ->update(['status'=>StockStatus::$BR_DAMAGED]);
+                }
+            }
+            //dd($request->all());
+            ReturnFromVendorDetails::insert($data);
+            
+            
+            DB::commit();
+
+            return redirect()->to('returns')->with("success", "Stock Delivered Successfully");
+        } catch (Exception $ex) 
+        {
+            Log::error($ex);
+            DB::rollback();
+            return redirect()->back()->withErrors("Internal Server Error")->withInput();
+        }
+    }
+
+    public function show($id)
+    {
+        $retVendor = ReturnFromVendor::findOrFail($id);
+        $retVendorDetails = ReturnFromVendorDetails::where('return_from_vendor_id',$retVendor->id)->get();
+        $pageInfo = ["title"=>"View Return From Vendor"];
+        $conditionList = $this->makeDD( [
+            4=>'Repaired',
+            5=>'Damaged',
+        ] ,"Condition");
+
+        return view("ReturnFromVendor::show",compact('pageInfo','retVendor','retVendorDetails','conditionList'));
     }
 
     public function getInVendorProduct(Request $request)
