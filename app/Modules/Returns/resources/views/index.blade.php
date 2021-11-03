@@ -74,11 +74,11 @@
 
                                             {{--@include('StockIn::edit') --}}
 
-                                            <button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$Return->id}}')">Delete</button>
+                                            {{--<button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$Return->id}}')">Delete</button>
                                             
                                             {{Form::model($Return,['route'=>['returns.destroy',$Return->id],'method'=>'delete','id'=>'delete-form-'.$Return->id,'name'=>'delete-form-'.$Return->id])}}
 
-                                            {{Form::close()}}
+                                            {{Form::close()}} --}}
                                         </td>
                                     </tr>
                                     @endforeach

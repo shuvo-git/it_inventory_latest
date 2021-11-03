@@ -102,4 +102,6 @@ class BrandController extends Controller
             return redirect()->back()->withErrors("Internal Server Error");
         }
     }
+
+    
 }

@@ -42,7 +42,7 @@
 
     $(document).ready(function () {
 
-        highlight_nav('product_management', 'products');
+        highlight_nav('stock_management', 'receive_from_vendor');
 
         $(window).keydown(function(event){
             if(event.keyCode == 13) {

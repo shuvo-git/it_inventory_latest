@@ -125,6 +125,12 @@ class ProductsController extends Controller {
         }
     }
 
+    public function show($id){
+        $product = Products::findOrFail($id);
+        $pageInfo = ["title"=>"View Product Details"];
+        return view("Products::view",compact('pageInfo','product'));
+    }
+
     /**
      * Working Code 05/09/2021
      */

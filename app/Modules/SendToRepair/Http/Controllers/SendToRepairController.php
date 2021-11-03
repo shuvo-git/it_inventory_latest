@@ -102,7 +102,7 @@ class SendToRepairController extends Controller
             
             DB::commit();
 
-            return redirect()->to('returns')->with("success", "Product Delivered for Repair Successfully");
+            return redirect()->to('return-from-vendor')->with("success", "Product Delivered for Repair Successfully");
         } catch (Exception $ex) 
         {
             Log::error($ex);
@@ -114,14 +114,14 @@ class SendToRepairController extends Controller
     public function show($id)
     {
         $SendToRepair = SendToRepair::findOrFail($id);
-        $RepairDetails = RepairDetails::where('return_from_vendor_id',$SendToRepair->id)->get();
+        $RepairDetails = RepairDetails::where('repair_id',$SendToRepair->id)->get();
         $pageInfo = ["title"=>"View Send to Repair"];
         $conditionList = $this->makeDD( [
             4=>'Repaired',
             5=>'Damaged',
         ] ,"Condition");
 
-        return view("ReturnFromVendor::show",compact('pageInfo','retVendor','retVendorDetails','conditionList'));
+        return view("SendToRepair::show",compact('pageInfo','SendToRepair','RepairDetails','conditionList'));
     }
 
     public function getReturnedProduct(Request $request){

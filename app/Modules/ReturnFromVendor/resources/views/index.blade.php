@@ -100,7 +100,7 @@
 <script>
     $(document).ready(function () 
     {
-        highlight_nav('stock_management', 'returns');
+        highlight_nav('stock_management', 'receive_from_vendor');
     });
 </script>
 @endpush

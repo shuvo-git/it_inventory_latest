@@ -12,11 +12,7 @@
             </div>
             <div class="panel-wrapper collapse in">
                 <div class="panel-body">
-                    
-                    {{Form::open(['route'=>'stock-out.store','method'=>'post'])}}
-                        @include('StockOut::_form')
-                    {{Form::close()}}
-                    
+                        @include('Products::view_show')
                 </div>
             </div>
         </div>
@@ -46,7 +42,7 @@
 
     $(document).ready(function () {
 
-        highlight_nav('stock_management', 'stock_out');
+        highlight_nav('product_management', 'products');
 
         $(window).keydown(function(event){
             if(event.keyCode == 13) {
@@ -95,22 +91,6 @@
             if(data) {
                 $("#buy_price_"+id).val(data.buy_price);
                 $("#short_list_qty_"+id).val(data.short_list_qty);
-            }
-        });
-    }
-
-    function getProductDetails(event,id) {
-        $.ajax({
-            method: "POST",
-            url: "{{ url('stock-detail') }}",
-            data: { product_id: id },
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-        })
-        .done(function( data ) {
-            if(data) {
-                console.log(data);
-                $(event.target).parent().next().children(0).html(data)  ;
-                //$('#stockin_details_id').empty().append(data);
             }
         });
     }

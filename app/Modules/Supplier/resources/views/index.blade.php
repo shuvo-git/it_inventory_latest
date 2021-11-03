@@ -101,7 +101,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        highlight_nav('settings', 'cat_list');
+        highlight_nav('settings', 'supplier_list');
     });
 </script>
 @endpush

@@ -61,7 +61,7 @@
                     <a class="brand_list" href="{{route('brand.index')}}">Manage Brand</a>
                 </li>
                 <li>
-                    <a class="company_management" href="{{route('supplier.index')}}" >Manage Supplier</a>
+                    <a class="supplier_list" href="{{route('supplier.index')}}" >Manage Supplier</a>
                 </li>
             </ul>
         </li>

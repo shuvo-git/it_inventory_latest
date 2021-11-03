@@ -84,3 +84,10 @@
     <button type="submit" class="btn btn-success btn-anim"><i class="icon-rocket"></i><span class="btn-text">submit</span></button>
 </div>
 </div>
+
+<div class="button-list pull-right">
+    <a href="{{route('send-to-repair.index')}}" class="btn btn-primary btn-outline btn-icon left-icon">
+        <i class="fa fa-long-arrow-left"></i><span> Back</span> 
+    </a>         
+</div>
+<div class="clearfix"></div>

@@ -1,21 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!--<div class="row heading-bg">
-    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h5 class="txt-dark">System Users</h5>
-    </div>
-     Breadcrumb
-    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#"><span>speciality pages</span></a></li>
-            <li class="active"><span>blank page</span></li>
-        </ol>
-    </div>
-     /Breadcrumb
-</div>-->
-
 
 <div class="row">
     <div class="col-lg-12">
@@ -41,10 +26,10 @@
                         </div>
                         {{--<div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             {{Form::select('company',companies(),request('company'),['class'=>'form-control select2','placeholder'=>'Select Company'])}}
-                        </div>--}}
+                        </div>
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             {{Form::select('status',productStatus(),request('status'),['class'=>'form-control select2','placeholder'=>'Select Status'])}}
-                        </div>
+                        </div>--}}
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                             {{Form::text('date_from',request('date_from'),['class'=>'form-control datepicker','placeholder'=>'Date From','autocomplete'=>"off"])}}
                         </div>
@@ -106,13 +91,13 @@
                                         <td>{{$product->brand->name ?? ''}}</td>
                                         <td>{{$product->created_at->format('d M, Y') ?? ''}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$product->id}}">View</button>
-                                             @include('Products::show')
-                                            {{--<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit_{{$product->id}}">Edit</button>
-
+                                            <a href="{{url('products/'.$product->id)}}" class="btn btn-sm btn-primary">View</a>
+                                            {{--<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$product->id}}">View</button>--}}
+                                            {{--@include('Products::show')--}}
+                                            <button type="button" class="btn btn-outline btn-sm btn-primary" data-toggle="modal" data-target="#edit_{{$product->id}}">Edit</button>
                                             @include('Products::edit')
 
-                                            <button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$product->id}}')">Delete</button>
+                                            {{--<button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$product->id}}')">Delete</button>
                                             {{Form::model($product,['route'=>['products.destroy',$product->id],'method'=>'delete','id'=>'delete-form-'.$product->id,'name'=>'delete-form-'.$product->id])}}
                                             {{Form::close()}} --}}
                                         </td>

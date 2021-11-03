@@ -12,7 +12,7 @@
             </div>
             <div class="panel-wrapper collapse in">
                 <div class="panel-body">
-                        @include('ReturnFromVendor::table_show')
+                        @include('SendToRepair::table_show')
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
 
     $(document).ready(function () {
 
-        highlight_nav('product_management', 'products');
+        highlight_nav('stock_management', 'send_to_repair');
 
         $(window).keydown(function(event){
             if(event.keyCode == 13) {

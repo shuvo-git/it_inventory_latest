@@ -76,3 +76,11 @@
     </div>
 
 </div>
+
+
+<div class="button-list pull-right">
+    <a href="{{route('return-from-vendor.index')}}" class="btn btn-primary btn-outline btn-icon left-icon">
+        <i class="fa fa-long-arrow-left"></i><span> Back</span> 
+    </a>         
+</div>
+<div class="clearfix"></div>

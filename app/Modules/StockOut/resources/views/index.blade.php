@@ -72,9 +72,9 @@
                                         <td>{{$StockOut->quantity ?? ''}}</td>
                                         <td>
                                             <a href="{{url('stock-out/'.$StockOut->id)}}" class="btn btn-sm btn-primary">View</a>
-                                            <button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$StockOut->id}}')">Delete</button>
+                                            {{--<button class="btn btn-sm btn-danger" onclick="showConfirmSweetAlert('delete-form-{{$StockOut->id}}')">Delete</button>
                                             {{Form::model($StockOut,['route'=>['stock-out.destroy',$StockOut->id],'method'=>'delete','id'=>'delete-form-'.$StockOut->id,'name'=>'delete-form-'.$StockOut->id])}}
-                                            {{Form::close()}}
+                                            {{Form::close()--}}
                                         </td>
                                     </tr>
                                     @endforeach

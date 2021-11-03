@@ -41,6 +41,8 @@
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('css/messagebox.min.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -146,6 +148,8 @@
     <script src="{{url('js/show-hide-sweet-alert.js')}}"></script>
     <script src="{{url('js/typeahead.bundle.js')}}"></script>
     <script src="{{url('js/custom.js')}}"></script>
+
+    <script src="{{url('js/messagebox.min.js')}}"></script>
 
 
     <script>

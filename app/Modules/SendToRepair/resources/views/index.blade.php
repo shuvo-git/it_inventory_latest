@@ -95,7 +95,7 @@
                                         <td>{{$Repair->delivery_person_mobile_no ?? ''}}</td>
                                         <td>{{\Carbon\Carbon::parse($Repair->send_date)->format('d M, Y') ?? ''}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#show_{{$Repair->id}}"><i class="fa fa-eye"></i></button>
+                                            <a href="{{url('send-to-repair/'.$Repair->id)}}" class="btn btn-sm btn-primary">View</a>
                                         </td>
                                     </tr>
                                     @endforeach
