@@ -43,12 +43,19 @@
                 <th width="13%">
                     Warranty Period
                 </th>
-                <th width="20%">
+                <th width="10%">
                 Expiry Date
                 </th>
                 <th width="13%">
                     Unique ID/Tag
                 </th>
+                <th width="5%">
+                    Status
+                </th>
+                <th width="5%">
+                    Action
+                </th>
+
             </tr>
             @if(isset($StockInDetails))
                 @foreach ($StockInDetails as $StockInDetail)
@@ -65,13 +72,29 @@
                         {{Form::text('warranty_period[]',$StockInDetail->warranty_period.' '.$StockInDetail->warranty_ymd,
                         ['class'=>'form-control','required','placeholder'=>"Warranty Period"])}}
                     </td>
-                    <td width="20%">
+                    <td width="10%">
                         {{Form::text('warranty_expiry_date[]',$StockInDetail->date($StockInDetail->warranty_expiry_date),
                         ['class'=>'form-control','required','placeholder'=>"Warranty Period"])}}
                     </td>
                     <td width="13%">
                         {{Form::text('unique_id[]',$StockInDetail->unique_id,
                         ['class'=>'form-control','required','placeholder'=>"Unique ID/Tag"])}}
+                    </td>
+                    <td width="5%">
+                        @switch($StockInDetail->status)
+                            @case(App\Classes\StockStatus::$IN_STOCK)
+                                <span class="label label-success pull-right">in-stock</span>
+                                @break
+                            @case(App\Classes\StockStatus::$BR_DAMAGED)
+                                <span class="label label-success pull-right">damaged</span>
+                                @break
+                        
+                            @default
+                                @break
+                        @endswitch
+                    </td>
+                    <td width="5%">
+                        <button class="btn btn-outline btn-sm btn-primary" onclick="updateProductStatus('{{$StockInDetail->id}}')">Update Stock Status</button>
                     </td>
                 </tr>
                 @endforeach

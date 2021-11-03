@@ -25,6 +25,45 @@
 <script>
     var count=1;
 
+    function updateProductStatus(id) { 
+
+        // Multiple inputs of different types
+        $.MessageBox({
+            message : "<h6>Damaged Product Entry Form</h6>",
+            input   : {
+                selectStatus : {
+                    type         : "select",
+                    label        : "Status",
+                    title        : "Choose Status ...",
+                    options      : {
+                        //"1" : "Repaired",
+                        55 : "Damaged"
+                    },
+                    defaultValue : "C"
+                }
+            },
+            top     : "auto"
+        }).done(function(data)
+        {
+            console.log(id);
+            console.log(data);
+            $.ajax({
+                method: "POST",
+                url: "{{route('update-stock-status')}}",
+                data: { stock_id: id, status_value: data.selectStatus },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            })
+            .done(function( data ) {
+                if(data.code==1){
+                    $.MessageBox("Status successfully updated.");
+                }
+                else{
+                    $.MessageBox("Some error occured while Updating the status.");
+                }
+            });
+        });
+    }
+
     function getDetails(id,value)
     {
         $.ajax({

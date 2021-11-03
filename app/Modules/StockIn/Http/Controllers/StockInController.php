@@ -236,6 +236,43 @@ class StockInController extends Controller
         }
     }
 
+    public function updateStockStatus(Request $request)
+    {
+        $this->validate($request, [
+            'stock_id'      => 'required|integer|min:1',
+            'status_value'  => 'required|integer|min:1'
+        ]);
+        
+        try {
+            DB::begintransaction();
+            $stock_in = StockInDetails::findOrFail($request->stock_id);
+            StockInDetails::where('id',$request->stock_id)
+                ->update(['status'=>$request->status_value]);
+
+            if($request->status_value == 55){
+                Products::find($stock_in->product_id)->decrement('available_qty');
+            }
+
+            $response = [
+                'message'=>'success',
+                'code'=>'1'
+            ];
+            return $response;
+        }
+        catch (Exception $ex) 
+        {
+            Log::error($ex);
+            DB::rollback();
+            $response = [
+                'message'=>'error',
+                'code'=>'2',
+                'desc'=>$ex
+            ];
+            return $response;
+        }
+        
+    }
+
     public function destroy($id) {
         //if (!auth()->user()->can('Settings'))
         //    abort(403);

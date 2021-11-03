@@ -124,9 +124,11 @@
 @push('scripts')
 
 <script>
+    
 
     $(document).ready(function () {
-    highlight_nav('product_management', 'products');
+        highlight_nav('product_management', 'products');
+        
     });
 
 </script>

@@ -67,8 +67,10 @@
                                         <td>{{$StockIn->narration ?? ''}}</td>
                                         <td>{{$StockIn->getSupplier->supplier_name ?? ''}}</td>
                                         <td>
-                                            {{--<a href="{{url('stock-in/'.$StockIn->id.'/edit')}}" class="btn btn-sm btn-primary">Edit</a>--}}
-                                            <a href="{{url('stock-in/'.$StockIn->id)}}" class="btn btn-sm btn-primary">View</a>
+                                            
+                                            <a href="{{url('stock-in/'.$StockIn->id)}}" class="btn btn-primary btn-icon-anim btn-circle btn-sm"><i class="fa fa-eye"></i></a>
+                                            
+                                            {{--<a href="{{url('stock-in/'.$StockIn->id.'/edit')}}" class="btn btn-sm btn-primary">Update Stock Status</a>--}}
 
                                             {{--@include('StockIn::edit') --}}
 
@@ -98,6 +100,8 @@
 
 @push('scripts')
 <script>
+    
+
     $(document).ready(function () {
         highlight_nav('stock_management', 'stock_in');
     });

@@ -81,6 +81,8 @@
         });
     }
 
+    
+
     $(document).ready(function () {
 
         highlight_nav('product_management', 'create_product');
@@ -91,6 +93,8 @@
                 return false;
             }
         });
+
+        
     });
 
 
